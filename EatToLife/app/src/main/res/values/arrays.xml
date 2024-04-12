@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="HaiXinA1">
+        <item>自选食堂</item>
+        <item>面条1号窗口</item>
+        <item>砂锅2号窗口</item>
+        <item>卤味6号窗口</item>
+        <item>拌面窗口</item>
+        <item>煲仔类窗口</item>
+        <item>蒸菜16号窗口</item>
+        <item>铁板炒饭</item>
+        <item>盖浇饭窗口</item>
+    </string-array>
+
+</resources>
