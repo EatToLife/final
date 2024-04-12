@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="10dp"
+        android:text="变化趋势"
+
+        android:textColor="@color/black"
+        android:textSize="20dp">
+
+    </TextView>
+
+    <ImageButton
+        android:id="@+id/Button_kalulphd"
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        android:layout_marginHorizontal="60dp"
+        android:layout_marginVertical="20dp"
+        android:background="@color/pink_3"
+
+        android:onClick="onClick_kalulphd"
+        android:scaleType="fitCenter"
+        android:src="@drawable/bt_kalulphd"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <ImageButton
+        android:id="@+id/Button_tizhong"
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        android:layout_marginHorizontal="60dp"
+        android:layout_marginVertical="20dp"
+        android:background="@color/pink_3"
+        android:onClick="onClick_tizhong"
+        android:scaleType="fitCenter"
+        android:src="@drawable/bt_tizhong"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="10dp"
+        android:text="膳食运动统计"
+        android:textColor="@color/black"
+        android:textSize="20dp"></TextView>
+
+    <ImageButton
+        android:id="@+id/Button_shiwuzb"
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        android:layout_marginHorizontal="60dp"
+        android:layout_marginVertical="20dp"
+        android:background="@color/pink_3"
+        android:onClick="onClick_shiwuzb"
+        android:scaleType="fitCenter"
+        android:src="@drawable/bt_shiwuzb"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <ImageButton
+        android:id="@+id/Button_yundongzb"
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        android:layout_marginHorizontal="60dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/pink_3"
+        android:onClick="onClick_yundongzb"
+        android:scaleType="fitCenter"
+        android:src="@drawable/bt_yundongzb"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+
+</LinearLayout>
