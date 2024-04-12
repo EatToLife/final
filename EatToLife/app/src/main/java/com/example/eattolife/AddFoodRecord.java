@@ -75,7 +75,7 @@ public class AddFoodRecord extends AppCompatActivity implements View.OnClickList
             CommonUtils.showShortMsg(this, "请输入饮食日期！");
             et_foodDate.requestFocus(); //获取焦点
         } else if (TextUtils.isEmpty(foodMeal)) {
-            CommonUtils.showShortMsg(this, "请输入餐别！");
+            CommonUtils.showShortMsg(this, "请输入餐别");
             et_foodDate.requestFocus();
         } else if (TextUtils.isEmpty(foodCalorie)) {
             CommonUtils.showShortMsg(this, "请输入热量！");
