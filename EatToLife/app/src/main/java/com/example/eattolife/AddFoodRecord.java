@@ -9,14 +9,10 @@ import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
-
+import com.example.eattolife.tools.CommonUtils;
 import com.example.eattolife.basic.Wo;
 import com.example.eattolife.basic.YinShiTJ;
 import com.example.eattolife.sql.DbOpenHelper;
-import com.example.eattolife.tools.CommonUtils;
-
-import java.util.List;
 
 public class AddFoodRecord extends AppCompatActivity implements View.OnClickListener{
     private Button btn_save, btn_cancel; //用户的饮食信息保存 & 取消按钮

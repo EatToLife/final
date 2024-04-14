@@ -1,164 +1,98 @@
 package com.example.eattolife;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
-
+import com.example.eattolife.tools.CommonUtils;
 import com.example.eattolife.util.ViewUtil;
 
-import java.util.Random;
 
-public class ShenFenYZ extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener, View.OnClickListener {
-    private TextView tv_password;
-    private EditText et_password;
-    private Button b_forget;
-    private CheckBox cb_remember;
-    private EditText et_cell;
-    private RadioButton rb_password;
-    private RadioButton rb_code;
-    private ActivityResultLauncher<Intent> register;
-    private Button b_login;
-    private String mPassword = "111111";
-    private String mCode;
+public class ShenFenYZ extends AppCompatActivity implements View.OnClickListener {
+
+    private EditText et_cell, et_password;
+    private UserDao userDao;//用户数据库操作类
+    private Handler mainHandler;//主线程
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shen_fen_yz);
-        RadioGroup rb_login = findViewById(R.id.rg_login);
-        tv_password = findViewById(R.id.tv_password);
+
         et_cell = findViewById(R.id.et_cell);
         et_password = findViewById(R.id.et_password);
-        b_forget = findViewById(R.id.b_forget);
-        cb_remember = findViewById(R.id.cb_remember);
-        rb_password = findViewById(R.id.rb_password);
-        rb_code = findViewById(R.id.rb_code);
-        b_login = findViewById(R.id.b_login);
-        //给rg_login设置单选监听器
-        rb_login.setOnCheckedChangeListener(this);
+        TextView tv_forget = findViewById(R.id.tv_forget);
+        Button b_login = findViewById(R.id.b_login);
         //给et_cell添加文本变更监听器
         et_cell.addTextChangedListener(new HideTextWatcher(et_cell, 11));
         //给et_password添加文本变更监听器
         et_password.addTextChangedListener(new HideTextWatcher(et_password, 6));
-        b_forget.setOnClickListener(this);
+        tv_forget.setOnClickListener(this);
         b_login.setOnClickListener(this);
+        mainHandler = new Handler(getMainLooper());
+        userDao = new UserDao();
 
-        register = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
-            @Override
-            public void onActivityResult(ActivityResult result) {
-                Intent intent = result.getData();
-                if(intent != null && result.getResultCode() == Activity.RESULT_OK){
-                    //用户密码已改为新密码，故更新密码变量
-                    mPassword = intent.getStringExtra("new_password");
-                }
-            }
-        });
-    }
-
-    @Override
-    public void onCheckedChanged(RadioGroup group, int checkedId) {
-
-        if (checkedId == R.id.rb_password) {//选择密码登录
-            tv_password.setText(getString(R.string.password));
-            et_password.setHint(getString(R.string.input_password));
-            b_forget.setText(getString(R.string.forget_password));
-            cb_remember.setVisibility(View.VISIBLE);
-
-        } else if (checkedId == R.id.rb_code) {//选择验证码登录
-            tv_password.setText(getString(R.string.code));
-            et_password.setHint(getString(R.string.input_code));
-            b_forget.setText(getString(R.string.get_code));
-            cb_remember.setVisibility(View.GONE);
-        }
     }
 
     @Override
     public void onClick(View v) {
         String cell = et_cell.getText().toString();
-        if (v.getId() == R.id.b_forget) {
+        if (v.getId() == R.id.tv_forget) {
             if (cell.length() < 11) {
-                Toast.makeText(this, "请输入正确的手机号", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            //选择了密码方式校验，此时要跳到找回密码页面
-            if (rb_password.isChecked()) {
-                //以下携带手机号跳转到找回密码页面
-                Intent intent = new Intent(this, ZhaoHuiMM.class);
+                CommonUtils.showDlgMsg(ShenFenYZ.this, "请输入正确的手机号");
+            }else {
+                Intent intent = new Intent(ShenFenYZ.this, ZhaoHuiMM.class);
                 intent.putExtra("cell", cell);
-                register.launch(intent);
-            } else if (rb_code.isChecked()) {
-                //生成六位随机数字的验证码
-                mCode = String.format("%06d", new Random().nextInt(999999));
-                //以下弹出提醒对话框，提示用户记住六位验证码数字
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setTitle("请记住验证码");
-                builder.setMessage("手机号" + cell + "，本次验证码是" + mCode + "，请输入验证码");
-                builder.setPositiveButton("好的", null);
-                AlertDialog dialog = builder.create();
-                dialog.show();
+                startActivity(intent);
             }
         }else if(v.getId() == R.id.b_login){
-            //密码方式校验
-            if(rb_password.isChecked()){
-                if(!mPassword.equals((et_password.getText().toString()))){
-                    Toast.makeText(this,"请输入正确的密码",Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                //提示用户登录成功
-                loginSuccess();
-            } else if (rb_code.isChecked()) {
-                //验证码方式校验
-                if(!mCode.equals((et_password.getText().toString()))){
-                    Toast.makeText(this,"请输入正确的验证码",Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                //提示用户登录成功
-                loginSuccess();
-            }
+            doLogin();
         }
     }
 
-    //校验通过，登录成功
-    private void loginSuccess() {
-        String desc = String.format("您的手机号是%s，恭喜你通过登录验证，点击”确定“按钮返回上个页面",
-                et_cell.getText().toString());
-        //以下弹出提醒对话框，提示用户登录成功
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("登录成功");
-        builder.setMessage(desc);
-        builder.setPositiveButton("确定",(dialog, which) -> {
-            //结束当前的活动页面
-            //finish();
-            //登录成功跳转到健康档案界面
-            Intent intent = new Intent(this, JianKangDA.class);
-            intent.putExtra("phone",et_cell.getText().toString());
-            register.launch(intent);
-        });
-        builder.setNegativeButton("我再看看",null);
-        AlertDialog dialog = builder.create();
-        dialog.show();
+    //执行登录操作
+    private void doLogin() {
+        String cell = et_cell.getText().toString().trim();
+        String password = et_password.getText().toString().trim();
+        if(TextUtils.isEmpty(cell)){
+            CommonUtils.showDlgMsg(ShenFenYZ.this, "请输入手机号");
+            et_cell.requestFocus();
+        } else if (TextUtils.isEmpty(password)) {
+            CommonUtils.showDlgMsg(ShenFenYZ.this, "请输入密码");
+            et_password.requestFocus();
+        }else {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    Userinfo item = userDao.getUserByCellAndPassword(cell, password);
+                    mainHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            //if (item == null) {
+                            //CommonUtils.showDlgMsg(ShenFenYZ.this, "手机号或密码错误");
+                            //} else {
+                            CommonUtils.showLongMsg(ShenFenYZ.this, "登录成功，进入健康档案");
+                            Intent intent = new Intent();
+                            intent.setClass(ShenFenYZ.this, JianKangDA.class);
+                            startActivity(intent);
+                            //}
+                        }
+                    });
+                }
+            }).start();
+        }
     }
 
     private class HideTextWatcher implements TextWatcher {
-        private EditText mView;
-        private int mMaxLength;
+        final private EditText mView;
+        final private int mMaxLength;
         public HideTextWatcher(EditText v, int maxLength) {
             this.mView = v;
             this.mMaxLength = maxLength;
