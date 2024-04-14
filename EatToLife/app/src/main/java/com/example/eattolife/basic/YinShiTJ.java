@@ -61,15 +61,12 @@ public class YinShiTJ extends AppCompatActivity implements View.OnClickListener 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_yin_shi_tj);
 
-        /**
-         * 返回
-         */
         //获得返回图标
         TextView back1 = findViewById(R.id.back);
         Typeface font = Typeface.createFromAsset(getAssets(),"back.ttf");
         back1.setTypeface(font);
 
-        //跳转按钮
+        //返回跳转按钮
         Button back2 = findViewById(R.id.back);
         back2.setOnClickListener(new View.OnClickListener() {
             @Override

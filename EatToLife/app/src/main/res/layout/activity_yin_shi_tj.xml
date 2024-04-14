@@ -56,12 +56,12 @@
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="51sp"
-                    android:text="海鑫A3" />
+                    android:text="海鑫A4" />
 
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="51sp"
-                    android:text="海鑫A4" />
+                    android:text="海鑫A3" />
 
                 <Button
                     android:layout_width="150dp"
