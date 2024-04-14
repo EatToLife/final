@@ -1,5 +1,6 @@
 package com.example.eattolife;
 
+import com.example.eattolife.FoodInfo;
 import com.example.eattolife.sql.DbOpenHelper;
 
 import java.util.ArrayList;
@@ -63,6 +64,30 @@ public class FoodDao extends DbOpenHelper {
             closeAll();
         }
         return item;
+    }
+
+    /**
+     * 添加饮食信息 C
+     * @param item 要添加的饮食信息
+     * @return int 影响的行数
+     */
+    public int addFoodInfo(FoodInfo item) {
+        int iRow = 0;
+        try{
+            getConnection(); //获取连接信息
+            String sql = "insert into foodinfo(foodName, foodPrice, foodCalorie) values(?,?,?)";
+            pStmt = conn.prepareStatement(sql);
+            pStmt.setString(1, item.getFoodName());
+            pStmt.setString(2,item.getFoodPrice());
+            pStmt.setFloat(3, item.getFoodCalorie());
+            // pStmt.setString(4,item.getFoodPic());
+            iRow = pStmt.executeUpdate();
+        }catch (Exception ex) {
+            ex.printStackTrace();
+        }finally {
+            closeAll();
+        }
+        return iRow;
     }
 
     /**

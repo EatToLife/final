@@ -20,7 +20,7 @@ public class MySqlHelp {
         try {
             Class.forName(CLS);  
             Connection conn = DriverManager.getConnection(URL, USER, PWD);
-            String sql = "select count(1) as res from haixin";
+            String sql = "select count(1) as res from foodinfo";
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) { //while逐条循环查询

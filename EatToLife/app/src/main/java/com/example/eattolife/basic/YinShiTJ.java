@@ -1,6 +1,7 @@
 package com.example.eattolife.basic;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -13,7 +14,9 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.eattolife.FoodAddActivity;
 import com.example.eattolife.FoodDao;
+import com.example.eattolife.FoodInfo;
 import com.example.eattolife.FoodRecord;
 import com.example.eattolife.LvFoodRecordAdapter;
 import com.example.eattolife.OnDelBtnClickListener;
@@ -31,11 +34,8 @@ public class YinShiTJ extends AppCompatActivity implements View.OnClickListener 
     private Button haixin_a2; //查询海鑫楼食物数量的按钮
     private TextView tv_food_count; //查询食物数量的文本框
 
-
-    /**
-     * 自定义添加
-     */
-    private List<FoodRecord> foodRecordList; //食物数据集合
+    private List<FoodInfo> foodInfoList; //食物信息集合
+    private List<FoodRecord> foodRecordList; //饮食记录集合
     private LvFoodRecordAdapter lvFoodRecordAdapter; //食物信息数据适配器
 
     private ListView lv_foodRecord; //用户饮食列表
@@ -51,11 +51,12 @@ public class YinShiTJ extends AppCompatActivity implements View.OnClickListener 
             //super.handleMessage(msg);
             ;
             if (msg.what == 0) {
-                int count = (Integer)msg.obj;
-                tv_food_count.setText("共有"+count+"可供选择");
+                int count = (Integer) msg.obj;
+                tv_food_count.setText("共有" + count + "可供选择");
             }
         }
     };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,7 +64,7 @@ public class YinShiTJ extends AppCompatActivity implements View.OnClickListener 
 
         //获得返回图标
         TextView back1 = findViewById(R.id.back);
-        Typeface font = Typeface.createFromAsset(getAssets(),"back.ttf");
+        Typeface font = Typeface.createFromAsset(getAssets(), "back.ttf");
         back1.setTypeface(font);
 
         //返回跳转按钮
@@ -73,6 +74,17 @@ public class YinShiTJ extends AppCompatActivity implements View.OnClickListener 
             public void onClick(View v) {
                 Intent intent = new Intent();
                 intent.setClass(YinShiTJ.this, Wo.class);
+                startActivity(intent);
+            }
+        });
+
+        //自定义添加饮食
+        Button customize = findViewById(R.id.customize);
+        customize.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(YinShiTJ.this, FoodAddActivity.class);
                 startActivity(intent);
             }
         });
@@ -115,6 +127,9 @@ public class YinShiTJ extends AppCompatActivity implements View.OnClickListener 
     public void onClick(View v) {
         if (v.getId() == R.id.haixin_a2) {
             doQueryCount();
+        } else if (v.getId() == R.id.customize) {
+            Intent intent = new Intent(this, FoodAddActivity.class);
+            startActivityForResult(intent, 1);
         }
     }
 
@@ -133,12 +148,20 @@ public class YinShiTJ extends AppCompatActivity implements View.OnClickListener 
         }).start(); //!!start
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1 && resultCode == 1) { //操作成功
+            loadFoodDb(); //重新加载数据
+        }
+    }
+
     //显示列表数据的方法
     private void showLvData() {
         if (lvFoodRecordAdapter == null) {      //首次加载时的操作
             lvFoodRecordAdapter = new LvFoodRecordAdapter(this, foodRecordList);
             lv_foodRecord.setAdapter(lvFoodRecordAdapter);
-        }else {     //更新数据时的操作
+        } else {     //更新数据时的操作
             lvFoodRecordAdapter.setFoodRecordList(foodRecordList);
             lvFoodRecordAdapter.notifyDataSetChanged();
         }

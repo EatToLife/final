@@ -8,8 +8,6 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.eattolife.entity.FoodInfo;
-
 import java.util.List;
 import java.util.Locale;
 
