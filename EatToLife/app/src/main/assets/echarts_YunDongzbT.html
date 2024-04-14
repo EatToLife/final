@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>ECharts</title>
+    <!-- 引入 echarts.js -->
+    <script src="./echarts.min.js"></script>
+</head>
+<body>
+<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+<div id="main" style="width:350px;height:400px;border-radius:10px;"></div>
+<script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('main'));
+
+        // 指定图表的配置项和数据
+        var option = {
+              title: {
+                text: '运动占比统计',
+                left:'10px',
+                subtext: '近14天'
+              },
+              tooltip: {
+                trigger: 'item',
+                formatter: '{a} <br/>{b} : {c} ({d}%)'
+              },
+              legend: {
+                left: 'center',
+                top: 'bottom',
+                data: [
+                  '跑步',
+                  '羽毛球',
+                  '篮球',
+                  '游泳',
+                  '健身',
+                  '拳击'
+                ]
+              },
+              toolbox: {
+                show: true,
+                feature: {
+                  mark: { show: true },
+                }
+              },
+              series: [
+                {
+                  name: ' 运动占比统计',
+                  type: 'pie',
+                  radius: [20, 100],
+                  center: ['50%', '50%'],
+                  roseType: 'area',
+                  itemStyle: {
+                    borderRadius: 5
+                  },
+                  label: {
+                      show:true
+                    },
+                   emphasis: {
+                      label: {
+                        show: true
+                      }
+                   },
+                  data: [
+                    { value: 60, name: '跑步' },
+                    { value: 28, name: '羽毛球' },
+                    { value: 26, name: '篮球' },
+                    { value: 24, name: '游泳' },
+                    { value: 10, name: '健身' },
+                    { value: 20, name: '拳击' }
+                  ]
+                }
+              ]
+            };
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+    </script>
+</body>
+</html>

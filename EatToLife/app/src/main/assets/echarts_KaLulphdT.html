@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>ECharts</title>
+    <!-- 引入 echarts.js -->
+    <script src="./echarts.min.js"></script>
+</head>
+<body>
+<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+<div id="main" style="width:350px;height:400px; border-radius: 10px;"></div>
+<script type="text/javascript">
+            // 基于准备好的dom，初始化echarts实例
+            var myChart = echarts.init(document.getElementById('main'));
+
+            // 指定图表的配置项和数据
+            var option = {
+                  title: {
+                    text: '卡路里平衡度统计'
+                  },
+                  tooltip: {
+                    trigger: 'axis'
+                  },
+                  grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    containLabel: true
+                  },
+                  toolbox: {
+                    feature: {
+                    }
+                  },
+                  xAxis: {
+                    type: 'category',
+                    name: '日期',
+                    boundaryGap: false,
+                    data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+                  },
+                  yAxis: {
+                    type: 'value',
+                    name: '卡路里'
+                  },
+                  dataZoom: [{
+                      type: 'slider',
+                      start: 0,
+                      end: 100
+                    }],
+                  series: [
+                    {
+                      name: '卡路里平衡度',
+                      type: 'line',
+                      data: [120, 132, 101, 134, 90, 230, 210],
+                      smooth: true
+                    },
+                  ]
+            };
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+    </script>
+</body>
+</html>
