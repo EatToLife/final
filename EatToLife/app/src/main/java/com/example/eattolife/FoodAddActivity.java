@@ -68,7 +68,7 @@ public class FoodAddActivity extends AppCompatActivity {
         } else {
             final FoodInfo item = new FoodInfo();
             item.setFoodName(_foodName);
-            item.setFoodPrice(_foodPrice);
+            item.setFoodPrice(Integer.parseInt(_foodPrice));
             item.setFoodCalorie(Float.parseFloat(_foodCalorie));
             new Thread(new Runnable() {
                 final int iRow = foodDao.addFoodInfo(item);

@@ -8,26 +8,23 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.eattolife.basic.YinShiTJ;
+
 import java.util.List;
 import java.util.Locale;
 
-public class LvFoodRecordAdapter extends BaseAdapter {
+public class LvFoodInfoAdapter extends BaseAdapter {
     private Context context; //上下文信息
-    private List<FoodRecord> foodRecordList; //用户饮食记录集合
+    private List<FoodInfo> foodInfoList; //用户饮食记录集合
 
     private OnEditBtnClickListener onEditBtnClickListener; //修改按钮点击事件的监听实例
     private OnDelBtnClickListener onDelBtnClickListener; //删除按钮点击事件的监听实例
 
-    public LvFoodRecordAdapter() {
+    public LvFoodInfoAdapter(YinShiTJ yinShiTJ, List<FoodInfo> foodInfoList) {
     }
 
-    public LvFoodRecordAdapter(Context context, List<FoodRecord> foodRecordList) {
-        this.context = context;
-        this.foodRecordList = foodRecordList;
-    }
-
-    public void setFoodRecordList(List<FoodRecord> foodRecordList) {
-        this.foodRecordList = foodRecordList;
+    public void setFoodInfoList(List<FoodInfo> foodInfoList) {
+        this.foodInfoList = foodInfoList;
     }
 
     public void setOnEditBtnClickListener(OnEditBtnClickListener onEditBtnClickListener) {
@@ -40,12 +37,12 @@ public class LvFoodRecordAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return foodRecordList.size();
+        return foodInfoList.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return foodRecordList.get(position);
+        return foodInfoList.get(position);
     }
 
     @Override
@@ -61,9 +58,9 @@ public class LvFoodRecordAdapter extends BaseAdapter {
             //food_list_item.xml加载条目布局，赋值给convertView变量 & 数据集合
             viewHolder = new ViewHolder();
 
-            viewHolder.foodDate = convertView.findViewById(R.id.foodDate);
-            viewHolder.foodMeal = convertView.findViewById(R.id.foodMeal);
-            viewHolder.foodCalorie = convertView.findViewById(R.id.foodCalorie);
+            viewHolder._foodName = convertView.findViewById(R.id._foodName);
+            viewHolder._foodPrice = convertView.findViewById(R.id._foodPrice);
+            viewHolder._foodCalorie = convertView.findViewById(R.id._foodCalorie);
 
             //viewHolder.iv_foodPic = convertView.findViewById(R.id.iv_foodPic);
             viewHolder.iv_edit = convertView.findViewById(R.id.iv_edit);
@@ -75,10 +72,10 @@ public class LvFoodRecordAdapter extends BaseAdapter {
         }
 
         //进行数据填充
-        final FoodRecord item = foodRecordList.get(position);
-        viewHolder.foodDate.setText(item.getFoodDate());
-        viewHolder.foodMeal.setText(item.getFoodMeal());
-        viewHolder.foodCalorie.setText(String.format(Locale.getDefault(), "%.1f.", item.getFoodCalorie()));
+        final FoodInfo item = foodInfoList.get(position);
+        viewHolder._foodName.setText(item.getFoodName());
+        viewHolder._foodPrice.setText(String.valueOf(item.getFoodPrice())); // 转换为字符串
+        viewHolder._foodCalorie.setText(String.format(Locale.getDefault(), "%.1f", item.getFoodCalorie())); // 格式化浮点数并转换为字符串
         //viewHolder.foodPic.setImageResource(R.drawable.your_image_name); //图片加载
 
         //修改按钮的点击事件
@@ -104,7 +101,7 @@ public class LvFoodRecordAdapter extends BaseAdapter {
 
     //自定义内部类
     private class ViewHolder {
-        private TextView foodDate, foodMeal, foodCalorie;
+        private TextView _foodName, _foodPrice, _foodCalorie;
         private ImageView iv_foodPic, iv_edit, iv_delete;
     }
 }

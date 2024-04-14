@@ -7,13 +7,13 @@ import java.io.Serializable;
  */
 public class FoodInfo implements Serializable {
     private String foodName; //食物名称
-    private String foodPrice; //食物价格
+    private int foodPrice; //食物价格
     private float foodCalorie; //饮食热量
     //private String foodPic; //食物图片
 
     public FoodInfo() {
     }
-    public FoodInfo(String foodName, String foodPrice, float foodCalorie) {
+    public FoodInfo(String foodName, int foodPrice, float foodCalorie) {
         this.foodName = foodName;
         this.foodPrice = foodPrice;
         this.foodCalorie = foodCalorie;
@@ -28,11 +28,11 @@ public class FoodInfo implements Serializable {
         this.foodName = foodName;
     }
 
-    public String getFoodPrice() {
+    public int getFoodPrice() {
         return foodPrice;
     }
 
-    public void setFoodPrice(String foodPrice) {
+    public void setFoodPrice(int foodPrice) {
         this.foodPrice = foodPrice;
     }
 
