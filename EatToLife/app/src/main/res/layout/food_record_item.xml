@@ -4,7 +4,7 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/iv_foodPic"
+        android:id="@+id/r_foodPic"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:src="@drawable/ic_launcher_background"/>
@@ -21,20 +21,20 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/foodDate"
+                android:id="@+id/r_foodDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="20230101    "/>
 
             <TextView
-                android:id="@+id/foodMeal"
+                android:id="@+id/r_foodMeal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="1"/>
         </LinearLayout>
 
         <TextView
-            android:id="@+id/foodCalorie"
+            android:id="@+id/r_foodCalorie"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="209"/>

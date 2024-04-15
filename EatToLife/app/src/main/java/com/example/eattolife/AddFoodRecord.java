@@ -104,5 +104,4 @@ public class AddFoodRecord extends AppCompatActivity implements View.OnClickList
             }).start();
         }
     }
-
 }

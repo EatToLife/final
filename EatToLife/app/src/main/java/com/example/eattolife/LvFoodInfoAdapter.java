@@ -14,11 +14,11 @@ import java.util.List;
 import java.util.Locale;
 
 public class LvFoodInfoAdapter extends BaseAdapter {
-    private Context context; //ÉÏÏÂÎÄĞÅÏ¢
-    private List<FoodInfo> foodInfoList; //ÓÃ»§ÒûÊ³¼ÇÂ¼¼¯ºÏ
+    private Context context; //ä¸Šä¸‹æ–‡ä¿¡æ¯
+    private List<FoodInfo> foodInfoList; //ç”¨æˆ·é¥®é£Ÿè®°å½•é›†åˆ
 
-    private OnEditBtnClickListener onEditBtnClickListener; //ĞŞ¸Ä°´Å¥µã»÷ÊÂ¼şµÄ¼àÌıÊµÀı
-    private OnDelBtnClickListener onDelBtnClickListener; //É¾³ı°´Å¥µã»÷ÊÂ¼şµÄ¼àÌıÊµÀı
+    private OnEditBtnClickListener onEditBtnClickListener; //ä¿®æ”¹æŒ‰é’®ç‚¹å‡»äº‹ä»¶çš„ç›‘å¬å®ä¾‹
+    private OnDelBtnClickListener onDelBtnClickListener; //åˆ é™¤æŒ‰é’®ç‚¹å‡»äº‹ä»¶çš„ç›‘å¬å®ä¾‹
 
     public LvFoodInfoAdapter(Context context, List<FoodInfo> foodInfoList) {
         this.context = context;
@@ -57,7 +57,7 @@ public class LvFoodInfoAdapter extends BaseAdapter {
         ViewHolder viewHolder = null;
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.food_list_item, null);
-            //food_list_item.xml¼ÓÔØÌõÄ¿²¼¾Ö£¬¸³Öµ¸øconvertView±äÁ¿ & Êı¾İ¼¯ºÏ
+            //food_list_item.xmlåŠ è½½æ¡ç›®å¸ƒå±€ï¼Œèµ‹å€¼ç»™convertViewå˜é‡ & æ•°æ®é›†åˆ
             viewHolder = new ViewHolder();
 
             viewHolder._foodName = convertView.findViewById(R.id._foodName);
@@ -68,20 +68,20 @@ public class LvFoodInfoAdapter extends BaseAdapter {
             viewHolder._edit = convertView.findViewById(R.id._edit);
             viewHolder._delete = convertView.findViewById(R.id._delete);
 
-            convertView.setTag(viewHolder); //¸øconvertViewÁĞ±íÊÓÍ¼×öviewHolder±ê¼Ç
+            convertView.setTag(viewHolder); //ç»™convertViewåˆ—è¡¨è§†å›¾åšviewHolderæ ‡è®°
         } else {
-            viewHolder = (ViewHolder) convertView.getTag(); //»ñµÃÒÑ¾­±£´æµÄÄÚÈİ
+            viewHolder = (ViewHolder) convertView.getTag(); //è·å¾—å·²ç»ä¿å­˜çš„å†…å®¹
         }
 
-        //½øĞĞÊı¾İÌî³ä
+        //è¿›è¡Œæ•°æ®å¡«å……
         final FoodInfo item = foodInfoList.get(position);
-        // ×ª»»Îª×Ö·û´®!!!String from int & float
+        // è½¬æ¢ä¸ºå­—ç¬¦ä¸²!!!String from int & float
         viewHolder._foodName.setText(item.getFoodName());
         viewHolder._foodPrice.setText(String.valueOf(item.getFoodPrice()));
         viewHolder._foodCalorie.setText(String.format(Locale.getDefault(), "%.1f.", item.getFoodCalorie()));
-        //viewHolder.foodPic.setImageResource(R.drawable.your_image_name); //Í¼Æ¬¼ÓÔØ
+        //viewHolder.foodPic.setImageResource(R.drawable.your_image_name); //å›¾ç‰‡åŠ è½½
 
-        //ĞŞ¸Ä°´Å¥µÄµã»÷ÊÂ¼ş
+        //ä¿®æ”¹æŒ‰é’®çš„ç‚¹å‡»äº‹ä»¶
         viewHolder._edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -89,7 +89,7 @@ public class LvFoodInfoAdapter extends BaseAdapter {
             }
         });
 
-        //É¾³ı°´Å¥µÄµã»÷ÊÂ¼ş
+        //åˆ é™¤æŒ‰é’®çš„ç‚¹å‡»äº‹ä»¶
         viewHolder._delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,7 +100,7 @@ public class LvFoodInfoAdapter extends BaseAdapter {
         return convertView;
     }
 
-    //×Ô¶¨ÒåÄÚ²¿Àà
+    //è‡ªå®šä¹‰å†…éƒ¨ç±»
     private class ViewHolder {
         private TextView _foodName, _foodPrice, _foodCalorie;
         private ImageView _edit, _delete;

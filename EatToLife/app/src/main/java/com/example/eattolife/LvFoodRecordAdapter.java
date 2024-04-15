@@ -61,9 +61,9 @@ public class LvFoodRecordAdapter extends BaseAdapter {
             //food_list_item.xml加载条目布局，赋值给convertView变量 & 数据集合
             viewHolder = new ViewHolder();
 
-            viewHolder.foodDate = convertView.findViewById(R.id.foodDate);
-            viewHolder.foodMeal = convertView.findViewById(R.id.foodMeal);
-            viewHolder.foodCalorie = convertView.findViewById(R.id.foodCalorie);
+            viewHolder.foodDate = convertView.findViewById(R.id.r_foodDate);
+            viewHolder.foodMeal = convertView.findViewById(R.id.r_foodMeal);
+            viewHolder.foodCalorie = convertView.findViewById(R.id.r_foodCalorie);
 
             //viewHolder.iv_foodPic = convertView.findViewById(R.id.iv_foodPic);
             viewHolder.iv_edit = convertView.findViewById(R.id.iv_edit);
