@@ -32,7 +32,7 @@ public class FoodEditActivity extends AppCompatActivity implements View.OnClickL
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_food_add);
+        setContentView(R.layout.activity_food_edit);
 
         foodName = findViewById(R.id.foodName);
         foodPrice = findViewById(R.id.foodPrice);
