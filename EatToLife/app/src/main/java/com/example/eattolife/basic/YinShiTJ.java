@@ -178,7 +178,7 @@ public class YinShiTJ extends AppCompatActivity implements View.OnClickListener 
                         .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                doDelFoodRecord(item.getId());
+                                doDelFoodRecord(item.getFoodID());
                             }
                         })
                         .setNegativeButton("取消", null)

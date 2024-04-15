@@ -23,6 +23,7 @@ public class FoodDao extends DbOpenHelper {
             rs = pStmt.executeQuery();
             while (rs.next()) { //查询数据不用if，而用while
                 FoodInfo item = new FoodInfo();
+                item.setFoodID(rs.getInt("foodID"));
                 item.setFoodName(rs.getString("foodName"));
                 item.setFoodPrice(rs.getInt("foodPrice"));
                 item.setFoodCalorie(rs.getFloat("foodCalorie"));
@@ -36,33 +37,6 @@ public class FoodDao extends DbOpenHelper {
         }
         return list;
     }
-
-//    /**
-//     * 查询所有的饮食记录信息
-//     */
-//    public List<FoodRecord> getAllFoodList() {
-//        List<FoodRecord> list = new ArrayList<>();
-//        try{
-//            getConnection(); //获取连接信息
-//            String sql = "select * from foodrecord";
-//            pStmt = conn.prepareStatement(sql);
-//            rs = pStmt.executeQuery();
-//            while (rs.next()) { //查询数据不用if，而用while
-//                FoodRecord item = new FoodRecord();
-//                item.setFoodDate(rs.getString("foodDate"));
-//                item.setFoodMeal(rs.getString("foodMeal"));
-//                item.setFoodCalorie(rs.getFloat("foodCalorie"));
-//                //item.setFoodPic(rs.getString("foodPic"));
-//
-//                list.add(item);
-//            }
-//        }catch (Exception ex) {
-//            ex.printStackTrace();
-//        }finally {
-//            closeAll();
-//        }
-//        return list;
-//    }
 
     /**
      * 按饮食日期和饮食餐别查询用户信息
@@ -131,7 +105,7 @@ public class FoodDao extends DbOpenHelper {
             pStmt = conn.prepareStatement(sql);
             pStmt.setFloat(1, item.getFoodCalorie());
             pStmt.setInt(2,item.getFoodPrice());
-            pStmt.setInt(3, item.getId());
+            pStmt.setInt(3, item.getFoodID());
             //pStmt.setString(4,item.getFoodPic());
             iRow = pStmt.executeUpdate();
         }catch (Exception ex) {

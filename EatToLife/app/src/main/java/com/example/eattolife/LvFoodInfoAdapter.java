@@ -60,6 +60,7 @@ public class LvFoodInfoAdapter extends BaseAdapter {
             //food_list_item.xml加载条目布局，赋值给convertView变量 & 数据集合
             viewHolder = new ViewHolder();
 
+            viewHolder._foodID = convertView.findViewById(R.id._foodID);
             viewHolder._foodName = convertView.findViewById(R.id._foodName);
             viewHolder._foodPrice = convertView.findViewById(R.id._foodPrice);
             viewHolder._foodCalorie = convertView.findViewById(R.id._foodCalorie);
@@ -76,6 +77,7 @@ public class LvFoodInfoAdapter extends BaseAdapter {
         //进行数据填充
         final FoodInfo item = foodInfoList.get(position);
         // 转换为字符串!!!String from int & float
+        viewHolder._foodID.setText(String.valueOf(item.getFoodID()));
         viewHolder._foodName.setText(item.getFoodName());
         viewHolder._foodPrice.setText(String.valueOf(item.getFoodPrice()));
         viewHolder._foodCalorie.setText(String.format(Locale.getDefault(), "%.1f.", item.getFoodCalorie()));
@@ -102,7 +104,7 @@ public class LvFoodInfoAdapter extends BaseAdapter {
 
     //自定义内部类
     private class ViewHolder {
-        private TextView _foodName, _foodPrice, _foodCalorie;
+        private TextView _foodName, _foodPrice, _foodCalorie, _foodID;
         private ImageView _edit, _delete;
     }
 }
