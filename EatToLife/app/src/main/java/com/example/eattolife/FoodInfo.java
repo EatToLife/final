@@ -8,7 +8,8 @@ import java.io.Serializable;
 public class FoodInfo implements Serializable {
     private String foodName; //食物名称
     private int foodPrice; //食物价格
-    private float foodCalorie; //饮食热量
+    private float foodCalorie; //食物热量
+    private int foodID; //食物编号
     //private String foodPic; //食物图片
 
     public FoodInfo() {
@@ -42,6 +43,9 @@ public class FoodInfo implements Serializable {
 
     public void setFoodCalorie(float foodCalorie) {
         this.foodCalorie = foodCalorie;
+    }
+
+    public int getId() { return foodID;
     }
 
 //    public String getFoodPic() {

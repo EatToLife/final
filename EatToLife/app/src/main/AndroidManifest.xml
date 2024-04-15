@@ -15,6 +15,9 @@
         android:theme="@style/Theme.EatToLife"
         tools:targetApi="31">
         <activity
+            android:name=".FoodEditActivity"
+            android:exported="false" />
+        <activity
             android:name=".FoodInfo"
             android:exported="false" />
         <activity

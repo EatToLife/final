@@ -119,43 +119,19 @@ public class FoodDao extends DbOpenHelper {
     }
 
     /**
-     * 添加饮食信息 C
-     * @param item 要添加的饮食信息
-     * @return int 影响的行数
-     */
-    public int addFoodRecord(FoodRecord item) {
-        int iRow = 0;
-        try{
-            getConnection(); //获取连接信息
-            String sql = "insert into foodrecord(foodDate, foodMeal, foodCalorie, foodPic) values(?,?,?,?)";
-            pStmt = conn.prepareStatement(sql);
-            pStmt.setString(1, item.getFoodDate());
-            pStmt.setString(2,item.getFoodMeal());
-            pStmt.setFloat(3, item.getFoodCalorie());
-           // pStmt.setString(4,item.getFoodPic());
-            iRow = pStmt.executeUpdate();
-        }catch (Exception ex) {
-            ex.printStackTrace();
-        }finally {
-            closeAll();
-        }
-        return iRow;
-    }
-
-    /**
      * 修改饮食信息 C
      * @param item 要编辑的饮食信息
      * @return int 影响的行数
      */
-    public int editFoodRecord(FoodRecord item) {
+    public int editFoodRecord(FoodInfo item) {
         int iRow = 0;
         try{
             getConnection(); //获取连接信息
-            String sql = "update foodrecord set foodCalorie=?, foodPic=? where foodDate=? and foodMeal=?";
+            String sql = "update foodinfo set foodCalorie=?, foodPrice=? where foodID=?";
             pStmt = conn.prepareStatement(sql);
-            pStmt.setString(1, item.getFoodDate());
-            pStmt.setString(2,item.getFoodMeal());
-            pStmt.setFloat(3, item.getFoodCalorie());
+            pStmt.setFloat(1, item.getFoodCalorie());
+            pStmt.setInt(2,item.getFoodPrice());
+            pStmt.setInt(3, item.getId());
             //pStmt.setString(4,item.getFoodPic());
             iRow = pStmt.executeUpdate();
         }catch (Exception ex) {
@@ -168,22 +144,21 @@ public class FoodDao extends DbOpenHelper {
 
     /**
      * 删除饮食信息 C
-     * @param foodDate 要编辑的饮食的日期
-     * @param foodMeal 要编辑的饮食的餐别
+     * @param foodID 要删除的饮食编号
      * @return int 影响的行数
      */
-    public int delFoodRecord(String foodDate, int foodMeal)  {
+    public int delFoodRecord(int foodID)  {
         int iRow = 0;
         try{
             getConnection(); //获取连接信息
-            String sql = "delete from com.example.eattolife.FoodRecord where foodDate=? and foodMeal=?";
+            String sql = "delete from foodRecord where foodID=?";
             pStmt = conn.prepareStatement(sql);
-            pStmt.setString(1, foodDate);
-            pStmt.setInt(2,foodMeal);
+            pStmt.setString(1, String.valueOf(foodID));
             iRow = pStmt.executeUpdate();
         }catch (Exception ex) {
             ex.printStackTrace();
         }finally {
+
             closeAll();
         }
         return iRow;

@@ -1,9 +1,12 @@
 package com.example.eattolife.basic;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -30,7 +33,7 @@ public class YinShiTJ extends AppCompatActivity implements View.OnClickListener 
     /**
      * 单个条目查询
      */
-    private Button haixin_a2; //查询海鑫楼食物数量的按钮
+    private Button haixin_a2, customize; //查询海鑫楼食物数量的按钮
     private TextView tv_food_count; //查询食物数量的文本框
 
     private FoodDao foodDao; //用户自定义添加食物的数据库操作类
@@ -41,8 +44,18 @@ public class YinShiTJ extends AppCompatActivity implements View.OnClickListener 
     private ListView lv_foodInfo; //用户饮食列表
 
     private DbOpenHelper dbOpenHelper; //数据库连接辅助类
-    private Handler mainHandler; //主线程
 
+    //启动并接收活动
+    private final ActivityResultLauncher<Intent> addFoodActivityResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == 1) {
+                    // 你的处理代码
+                    loadFoodDb();
+                }
+            });
+
+    private Handler mainHandler; //主线程
     //复写线程
     private Handler handler = new Handler() {
         @Override
@@ -77,24 +90,53 @@ public class YinShiTJ extends AppCompatActivity implements View.OnClickListener 
             }
         });
 
-        //自定义添加饮食
-        Button customize = findViewById(R.id.customize);
-        customize.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setClass(YinShiTJ.this, FoodAddActivity.class);
-                startActivity(intent);
-            }
-        });
-
         initView(); //单个条目查询
         loadFoodDb(); //加载食物信息
 
+        lvFoodInfoAdapter.setOnDelBtnClickListener(new OnDelBtnClickListener() {
+            @Override
+            public void onDelBtnClick(View v, int position) {
+                //删除方法
+                final FoodInfo item = foodInfoList.get(position);
+                new AlertDialog.Builder(YinShiTJ.this)
+                        .setTitle("删除确认")
+                        .setMessage("您确定要删除吗？")
+                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                doDelFoodRecord(item.getId());
+                            }
+                        })
+                        .setNegativeButton("取消", null)
+                        .create().show();
+            }
+        });
+    }
+
+    /**
+     * 执行删除用户饮食记录的方法
+     *
+     * @param id 要删除用户的id
+     */
+    private void doDelFoodRecord(final int id) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                final int iRow = foodDao.delFoodRecord(id);
+                mainHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        loadFoodDb();
+                    }
+                });
+            }
+        }).start();
     }
 
     private void initView() {
         haixin_a2 = findViewById(R.id.haixin_a2);
+        customize = findViewById(R.id.customize);
+
         tv_food_count = findViewById(R.id.tv_food_count);
 
         lv_foodInfo = findViewById(R.id.lv_foodInfo);
@@ -105,23 +147,16 @@ public class YinShiTJ extends AppCompatActivity implements View.OnClickListener 
         mainHandler = new Handler(getMainLooper()); //获取主线程
 
         haixin_a2.setOnClickListener(this);
+        customize.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.haixin_a2) {
             doQueryCount();
-        } else if (v.getId() == R.id.customize) {
+        } else if (v.getId() == R.id.customize) { //自定义添加饮食
             Intent intent = new Intent(this, FoodAddActivity.class);
-            startActivityForResult(intent, 1);
-        }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1 && resultCode == 1) { //操作成功
-            loadFoodDb(); //重新加载数据
+            addFoodActivityResultLauncher.launch(intent);
         }
     }
 
@@ -142,24 +177,6 @@ public class YinShiTJ extends AppCompatActivity implements View.OnClickListener 
             }
         }).start();
     }
-
-    /**饮食记录加载
-     *
-     */
-//    private void loadFoodDb() {
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                foodRecordList = foodDao.getAllFoodList(); //获取所有的食物数据
-//                mainHandler.post(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        showLvData();
-//                    }
-//                });
-//            }
-//        }).start();
-//    }
 
     //显示列表数据的方法
     private void showLvData() {
