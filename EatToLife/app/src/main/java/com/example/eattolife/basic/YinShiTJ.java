@@ -33,14 +33,13 @@ public class YinShiTJ extends AppCompatActivity implements View.OnClickListener 
     private Button haixin_a2; //查询海鑫楼食物数量的按钮
     private TextView tv_food_count; //查询食物数量的文本框
 
+    private FoodDao foodDao; //用户自定义添加食物的数据库操作类
+
     private List<FoodInfo> foodInfoList; //食物信息集合
-    //private List<FoodRecord> foodRecordList; //饮食记录集合
-    //private LvFoodRecordAdapter lvFoodRecordAdapter; //食物信息数据适配器
     LvFoodInfoAdapter lvFoodInfoAdapter; //食物信息数据适配器
 
     private ListView lv_foodInfo; //用户饮食列表
 
-    private FoodDao foodDao; //用户自定义添加食物的数据库操作类
     private DbOpenHelper dbOpenHelper; //数据库连接辅助类
     private Handler mainHandler; //主线程
 

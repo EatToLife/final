@@ -20,10 +20,10 @@
         <activity
             android:name=".FoodAddActivity"
             android:exported="false" />
-        <activity android:name=".basic.Wo" />
         <activity android:name=".basic.YinShiTJ" />
+        <activity android:name=".AddFoodRecord" />
         <activity
-            android:name=".AddFoodRecord"
+            android:name=".basic.Wo"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

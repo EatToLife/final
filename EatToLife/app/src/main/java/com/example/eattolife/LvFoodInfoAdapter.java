@@ -14,13 +14,15 @@ import java.util.List;
 import java.util.Locale;
 
 public class LvFoodInfoAdapter extends BaseAdapter {
-    private Context context; //ä¸Šä¸‹æ–‡ä¿¡æ¯
-    private List<FoodInfo> foodInfoList; //ç”¨æˆ·é¥®é£Ÿè®°å½•é›†åˆ
+    private Context context; //ÉÏÏÂÎÄĞÅÏ¢
+    private List<FoodInfo> foodInfoList; //ÓÃ»§ÒûÊ³¼ÇÂ¼¼¯ºÏ
 
-    private OnEditBtnClickListener onEditBtnClickListener; //ä¿®æ”¹æŒ‰é’®ç‚¹å‡»äº‹ä»¶çš„ç›‘å¬å®ä¾‹
-    private OnDelBtnClickListener onDelBtnClickListener; //åˆ é™¤æŒ‰é’®ç‚¹å‡»äº‹ä»¶çš„ç›‘å¬å®ä¾‹
+    private OnEditBtnClickListener onEditBtnClickListener; //ĞŞ¸Ä°´Å¥µã»÷ÊÂ¼şµÄ¼àÌıÊµÀı
+    private OnDelBtnClickListener onDelBtnClickListener; //É¾³ı°´Å¥µã»÷ÊÂ¼şµÄ¼àÌıÊµÀı
 
-    public LvFoodInfoAdapter(YinShiTJ yinShiTJ, List<FoodInfo> foodInfoList) {
+    public LvFoodInfoAdapter(Context context, List<FoodInfo> foodInfoList) {
+        this.context = context;
+        this.foodInfoList = foodInfoList;
     }
 
     public void setFoodInfoList(List<FoodInfo> foodInfoList) {
@@ -55,7 +57,7 @@ public class LvFoodInfoAdapter extends BaseAdapter {
         ViewHolder viewHolder = null;
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.food_list_item, null);
-            //food_list_item.xmlåŠ è½½æ¡ç›®å¸ƒå±€ï¼Œèµ‹å€¼ç»™convertViewå˜é‡ & æ•°æ®é›†åˆ
+            //food_list_item.xml¼ÓÔØÌõÄ¿²¼¾Ö£¬¸³Öµ¸øconvertView±äÁ¿ & Êı¾İ¼¯ºÏ
             viewHolder = new ViewHolder();
 
             viewHolder._foodName = convertView.findViewById(R.id._foodName);
@@ -63,45 +65,44 @@ public class LvFoodInfoAdapter extends BaseAdapter {
             viewHolder._foodCalorie = convertView.findViewById(R.id._foodCalorie);
 
             //viewHolder.iv_foodPic = convertView.findViewById(R.id.iv_foodPic);
-            viewHolder.iv_edit = convertView.findViewById(R.id.iv_edit);
-            viewHolder.iv_delete = convertView.findViewById(R.id.iv_delete);
+            viewHolder._edit = convertView.findViewById(R.id._edit);
+            viewHolder._delete = convertView.findViewById(R.id._delete);
 
-            convertView.setTag(viewHolder); //ç»™convertViewåˆ—è¡¨è§†å›¾åšviewHolderæ ‡è®°
-        }else {
-            viewHolder = (ViewHolder) convertView.getTag();
+            convertView.setTag(viewHolder); //¸øconvertViewÁĞ±íÊÓÍ¼×öviewHolder±ê¼Ç
+        } else {
+            viewHolder = (ViewHolder) convertView.getTag(); //»ñµÃÒÑ¾­±£´æµÄÄÚÈİ
         }
 
-        //è¿›è¡Œæ•°æ®å¡«å……
+        //½øĞĞÊı¾İÌî³ä
         final FoodInfo item = foodInfoList.get(position);
+        // ×ª»»Îª×Ö·û´®!!!String from int & float
         viewHolder._foodName.setText(item.getFoodName());
-        viewHolder._foodPrice.setText(String.valueOf(item.getFoodPrice())); // è½¬æ¢ä¸ºå­—ç¬¦ä¸²
-        viewHolder._foodCalorie.setText(String.format(Locale.getDefault(), "%.1f", item.getFoodCalorie())); // æ ¼å¼åŒ–æµ®ç‚¹æ•°å¹¶è½¬æ¢ä¸ºå­—ç¬¦ä¸²
-        //viewHolder.foodPic.setImageResource(R.drawable.your_image_name); //å›¾ç‰‡åŠ è½½
+        viewHolder._foodPrice.setText(String.valueOf(item.getFoodPrice()));
+        viewHolder._foodCalorie.setText(String.format(Locale.getDefault(), "%.1f.", item.getFoodCalorie()));
+        //viewHolder.foodPic.setImageResource(R.drawable.your_image_name); //Í¼Æ¬¼ÓÔØ
 
-        //ä¿®æ”¹æŒ‰é’®çš„ç‚¹å‡»äº‹ä»¶
-        viewHolder.iv_edit.setOnClickListener(new View.OnClickListener() {
+        //ĞŞ¸Ä°´Å¥µÄµã»÷ÊÂ¼ş
+        viewHolder._edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (onEditBtnClickListener != null) {
-                    onEditBtnClickListener.onEditBtnClick(v, position);
-                }            }
+                onEditBtnClickListener.onEditBtnClick(v, position);
+            }
         });
 
-        //åˆ é™¤æŒ‰é’®çš„ç‚¹å‡»äº‹ä»¶
-        viewHolder.iv_delete.setOnClickListener(new View.OnClickListener() {
+        //É¾³ı°´Å¥µÄµã»÷ÊÂ¼ş
+        viewHolder._delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (onDelBtnClickListener != null) {
-                    onDelBtnClickListener.onDelBtnClick(v, position);
-                }            }
+                onDelBtnClickListener.onDelBtnClick(v, position);
+            }
         });
 
         return convertView;
     }
 
-    //è‡ªå®šä¹‰å†…éƒ¨ç±»
+    //×Ô¶¨ÒåÄÚ²¿Àà
     private class ViewHolder {
         private TextView _foodName, _foodPrice, _foodCalorie;
-        private ImageView iv_foodPic, iv_edit, iv_delete;
+        private ImageView _edit, _delete;
     }
 }

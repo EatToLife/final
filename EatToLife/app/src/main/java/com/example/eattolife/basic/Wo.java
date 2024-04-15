@@ -34,7 +34,7 @@ public class Wo extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
-                intent.setClass(Wo.this, AddFoodRecord.class); //从Wo跳转到AddFoodRecord
+                intent.setClass(Wo.this, YinShiTJ.class); //从Wo跳转到AddFoodRecord
                 startActivity(intent);
             }
         });
