@@ -28,6 +28,7 @@ import com.example.eattolife.OnEditBtnClickListener;
 import com.example.eattolife.sql.DbOpenHelper;
 import com.example.eattolife.sql.MySqlHelp;
 import com.example.eattolife.R;
+import com.example.eattolife.tools.CommonUtils;
 
 import java.util.List;
 
@@ -200,7 +201,14 @@ public class YinShiTJ extends AppCompatActivity implements View.OnClickListener 
                 mainHandler.post(new Runnable() {
                     @Override
                     public void run() {
-                        loadFoodDb();
+                        if (iRow > 0) {
+                            CommonUtils.showShortMsg(getApplicationContext(), "已成功删除！");
+                            loadFoodDb();
+                        } else {
+                            CommonUtils.showShortMsg(getApplicationContext(), "删除物信息失败！");
+                        }
+                        setResult(1);
+                        finish();
                     }
                 });
             }

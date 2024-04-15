@@ -125,7 +125,7 @@ public class FoodDao extends DbOpenHelper {
         int iRow = 0;
         try{
             getConnection(); //获取连接信息
-            String sql = "delete from foodRecord where foodID=?";
+            String sql = "delete from foodinfo where foodID=?";
             pStmt = conn.prepareStatement(sql);
             pStmt.setString(1, String.valueOf(foodID));
             iRow = pStmt.executeUpdate();
