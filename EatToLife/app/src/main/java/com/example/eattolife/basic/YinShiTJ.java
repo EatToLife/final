@@ -19,7 +19,9 @@ import android.widget.TextView;
 
 import com.example.eattolife.FoodAddActivity;
 import com.example.eattolife.FoodDao;
+import com.example.eattolife.FoodEditActivity;
 import com.example.eattolife.FoodInfo;
+import com.example.eattolife.FoodRecord;
 import com.example.eattolife.LvFoodInfoAdapter;
 import com.example.eattolife.OnDelBtnClickListener;
 import com.example.eattolife.OnEditBtnClickListener;
@@ -93,44 +95,6 @@ public class YinShiTJ extends AppCompatActivity implements View.OnClickListener 
         initView(); //单个条目查询
         loadFoodDb(); //加载食物信息
 
-        lvFoodInfoAdapter.setOnDelBtnClickListener(new OnDelBtnClickListener() {
-            @Override
-            public void onDelBtnClick(View v, int position) {
-                //删除方法
-                final FoodInfo item = foodInfoList.get(position);
-                new AlertDialog.Builder(YinShiTJ.this)
-                        .setTitle("删除确认")
-                        .setMessage("您确定要删除吗？")
-                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                doDelFoodRecord(item.getId());
-                            }
-                        })
-                        .setNegativeButton("取消", null)
-                        .create().show();
-            }
-        });
-    }
-
-    /**
-     * 执行删除用户饮食记录的方法
-     *
-     * @param id 要删除用户的id
-     */
-    private void doDelFoodRecord(final int id) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                final int iRow = foodDao.delFoodRecord(id);
-                mainHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        loadFoodDb();
-                    }
-                });
-            }
-        }).start();
     }
 
     private void initView() {
@@ -192,7 +156,13 @@ public class YinShiTJ extends AppCompatActivity implements View.OnClickListener 
         lvFoodInfoAdapter.setOnEditBtnClickListener(new OnEditBtnClickListener() {
             @Override
             public void onEditBtnClick(View v, int position) {
-                //删除方法
+                //修改按钮的操作
+                FoodInfo item = foodInfoList.get(position);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("foodInfoEdit", item);
+                Intent intent = new Intent(YinShiTJ.this, FoodEditActivity.class);
+                intent.putExtras(bundle);
+                startActivityForResult(intent, 1);
             }
         });
 
@@ -201,8 +171,40 @@ public class YinShiTJ extends AppCompatActivity implements View.OnClickListener 
             @Override
             public void onDelBtnClick(View v, int position) {
                 //删除方法
+                final FoodInfo item = foodInfoList.get(position);
+                new AlertDialog.Builder(YinShiTJ.this)
+                        .setTitle("删除确认")
+                        .setMessage("您确定要删除吗？")
+                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                doDelFoodRecord(item.getId());
+                            }
+                        })
+                        .setNegativeButton("取消", null)
+                        .create().show();
             }
         });
+    }
+
+    /**
+     * 执行删除用户饮食记录的方法
+     *
+     * @param id 要删除用户的id
+     */
+    private void doDelFoodRecord(final int id) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                final int iRow = foodDao.delFoodRecord(id);
+                mainHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        loadFoodDb();
+                    }
+                });
+            }
+        }).start();
     }
 
     //执行查询食物数量的方法

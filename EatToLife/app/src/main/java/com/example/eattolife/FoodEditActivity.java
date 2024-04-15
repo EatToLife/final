@@ -48,8 +48,6 @@ public class FoodEditActivity extends AppCompatActivity implements View.OnClickL
             foodPrice.setText(foodInfoEdit.getFoodPrice());
             foodCalorie.setText((int) foodInfoEdit.getFoodCalorie());
         }
-        foodInfoEdit = new FoodInfo();
-
 
         foodDao = new FoodDao();
         mainHandler = new Handler(getMainLooper());
