@@ -57,17 +57,17 @@ public class LvFoodRecordAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder = null;
         if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.food_list_item, null);
+            convertView = LayoutInflater.from(context).inflate(R.layout.food_record_item, null);
             //food_list_item.xml加载条目布局，赋值给convertView变量 & 数据集合
             viewHolder = new ViewHolder();
 
-            viewHolder.foodDate = convertView.findViewById(R.id.r_foodDate);
-            viewHolder.foodMeal = convertView.findViewById(R.id.r_foodMeal);
-            viewHolder.foodCalorie = convertView.findViewById(R.id.r_foodCalorie);
+            viewHolder.foodRecordID = convertView.findViewById(R.id.foodRecordID);
+            viewHolder.foodRecordName = convertView.findViewById(R.id.foodRecordName);
+            viewHolder.foodRecordCalorie = convertView.findViewById(R.id.foodRecordCalorie);
 
             //viewHolder.iv_foodPic = convertView.findViewById(R.id.iv_foodPic);
-            viewHolder.iv_edit = convertView.findViewById(R.id.iv_edit);
-            viewHolder.iv_delete = convertView.findViewById(R.id.iv_delete);
+            viewHolder.deleteFoodRecord = convertView.findViewById(R.id.deleteFoodRecord);
+            viewHolder.addFoodRecord = convertView.findViewById(R.id.addFoodRecord);
 
             convertView.setTag(viewHolder); //给convertView列表视图做viewHolder标记
         }else {
@@ -104,7 +104,7 @@ public class LvFoodRecordAdapter extends BaseAdapter {
 
     //自定义内部类
     private class ViewHolder {
-        private TextView foodDate, foodMeal, foodCalorie;
-        private ImageView iv_foodPic, iv_edit, iv_delete;
+        private TextView foodRecordID, foodRecordName, foodRecordCalorie;
+        private ImageView deleteFoodRecord, addFoodRecord;
     }
 }

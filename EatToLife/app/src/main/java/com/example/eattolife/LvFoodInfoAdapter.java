@@ -19,6 +19,8 @@ public class LvFoodInfoAdapter extends BaseAdapter {
 
     private OnEditBtnClickListener onEditBtnClickListener; //修改按钮点击事件的监听实例
     private OnDelBtnClickListener onDelBtnClickListener; //删除按钮点击事件的监听实例
+    private OnAddBtnClickListener onAddBtnClickListener; //添加按钮点击事件的监听实例
+
 
     public LvFoodInfoAdapter(Context context, List<FoodInfo> foodInfoList) {
         this.context = context;
@@ -37,6 +39,9 @@ public class LvFoodInfoAdapter extends BaseAdapter {
         this.onDelBtnClickListener = onDelBtnClickListener;
     }
 
+    public void setOnAddBtnClickListener(OnAddBtnClickListener onAddBtnClickListener) {
+        this.onAddBtnClickListener = onAddBtnClickListener;
+    }
     @Override
     public int getCount() {
         return foodInfoList.size();
@@ -68,6 +73,7 @@ public class LvFoodInfoAdapter extends BaseAdapter {
             //viewHolder.iv_foodPic = convertView.findViewById(R.id.iv_foodPic);
             viewHolder._edit = convertView.findViewById(R.id._edit);
             viewHolder._delete = convertView.findViewById(R.id._delete);
+            viewHolder._add = convertView.findViewById(R.id._add);
 
             convertView.setTag(viewHolder); //给convertView列表视图做viewHolder标记
         } else {
@@ -99,12 +105,21 @@ public class LvFoodInfoAdapter extends BaseAdapter {
             }
         });
 
+        //添加按钮的点击事件
+        viewHolder._add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onAddBtnClickListener.onAddBtnClick(v, position);
+            }
+        });
+
+
         return convertView;
     }
 
     //自定义内部类
     private class ViewHolder {
         private TextView _foodName, _foodPrice, _foodCalorie, _foodID;
-        private ImageView _edit, _delete;
+        private ImageView _edit, _delete, _add;
     }
 }

@@ -6,49 +6,49 @@ import java.io.Serializable;
  * 用户每日饮食记录实例
  */
 public class FoodRecord implements Serializable {
-    private String foodDate; //饮食日期
-    private String foodMeal; //饮食餐别
-    private float foodCalorie; //饮食热量
-    private String foodPic; //食物图片
+    private int foodRecordID; //饮食记录ID
+    private String foodRecordDt; //饮食记录日期
+    private String foodRecordName; //饮食记录名字
+    private float foodRecordCalorie; //饮食记录热量
 
     public FoodRecord() {
     }
-    public FoodRecord(String foodDate, String foodMeal, float foodCalorie, String foodPic) {
-        this.foodDate = foodDate;
-        this.foodMeal = foodMeal;
-        this.foodCalorie = foodCalorie;
-        this.foodPic = foodPic;
+    public FoodRecord(int foodRecordID, String foodRecordDt, String foodRecordName, float foodRecordCalorie) {
+        this.foodRecordID = foodRecordID;
+        this.foodRecordDt = foodRecordDt;
+        this.foodRecordName = foodRecordName;
+        this.foodRecordCalorie = foodRecordCalorie;
     }
 
-    public String getFoodDate() {
-        return foodDate;
+    public int getFoodRecordID() {
+        return foodRecordID;
     }
 
-    public void setFoodDate(String foodDate) {
-        this.foodDate = foodDate;
+    public void setFoodRecordID(int foodRecordID) {
+        this.foodRecordID = foodRecordID;
     }
 
-    public String getFoodMeal() {
-        return foodMeal;
+    public String getFoodRecordDt() {
+        return foodRecordDt;
     }
 
-    public void setFoodMeal(String foodMeal) {
-        this.foodMeal = foodMeal;
+    public void setFoodRecordDt(String foodRecordDt) {
+        this.foodRecordDt = foodRecordDt;
     }
 
-    public float getFoodCalorie() {
-        return foodCalorie;
+    public String getFoodRecordName() {
+        return foodRecordName;
     }
 
-    public void setFoodCalorie(float foodCalorie) {
-        this.foodCalorie = foodCalorie;
+    public void setFoodRecordName(String foodRecordName) {
+        this.foodRecordName = foodRecordName;
     }
 
-    public String getFoodPic() {
-        return foodPic;
+    public float getFoodRecordCalorie() {
+        return foodRecordCalorie;
     }
 
-    public void setFoodPic(String foodPic) {
-        this.foodPic = foodPic;
+    public void setFoodRecordCalorie(float foodRecordCalorie) {
+        this.foodRecordCalorie = foodRecordCalorie;
     }
 }

@@ -39,36 +39,6 @@ public class FoodDao extends DbOpenHelper {
     }
 
     /**
-     * 按饮食日期和饮食餐别查询用户信息
-     * @param foodDate 饮食日期
-     * @param foodMeal 饮食类别
-     * @return com.example.eattolife.FoodRecord 实例
-     */
-    public FoodRecord getFoodRecordByfoodDateAndfoodMeal(String foodDate, String foodMeal) {
-        FoodRecord item = null;
-        try{
-            getConnection(); //获取连接信息
-            String sql = "select * from foodrecord where foodDate=? and foodMeal=?";
-            pStmt = conn.prepareStatement(sql);
-            pStmt.setString(1, foodDate);
-            pStmt.setString(2,foodMeal);
-            rs = pStmt.executeQuery();
-            if (rs.next()) {
-                item = new FoodRecord();
-                item.setFoodDate(foodDate);
-                item.setFoodMeal(foodMeal);
-                item.setFoodCalorie(rs.getFloat("foodCalorie"));
-                //item.setFoodPic(rs.getString("foodPic"));
-            }
-        }catch (Exception ex) {
-            ex.printStackTrace();
-        }finally {
-            closeAll();
-        }
-        return item;
-    }
-
-    /**
      * 添加饮食信息 C
      * @param item 要添加的饮食信息
      * @return int 影响的行数
@@ -82,6 +52,30 @@ public class FoodDao extends DbOpenHelper {
             pStmt.setString(1, item.getFoodName());
             pStmt.setInt(2,item.getFoodPrice());
             pStmt.setFloat(3, item.getFoodCalorie());
+            // pStmt.setString(4,item.getFoodPic());
+            iRow = pStmt.executeUpdate();
+        }catch (Exception ex) {
+            ex.printStackTrace();
+        }finally {
+            closeAll();
+        }
+        return iRow;
+    }
+
+    /**
+     * 添加用户饮食记录 C
+     * @param item 要添加的饮食信息
+     * @return int 影响的行数
+     */
+    public int addFoodRecord(FoodRecord item) {
+        int iRow = 0;
+        try{
+            getConnection(); //获取连接信息
+            String sql = "insert into foodrecord(foodRecordDt, foodName, foodCalorie) values(?,?,?)";
+            pStmt = conn.prepareStatement(sql);
+            pStmt.setString(1, item.getFoodRecordDt());
+            pStmt.setString(2,item.getFoodRecordName());
+            pStmt.setFloat(3, item.getFoodRecordCalorie());
             // pStmt.setString(4,item.getFoodPic());
             iRow = pStmt.executeUpdate();
         }catch (Exception ex) {

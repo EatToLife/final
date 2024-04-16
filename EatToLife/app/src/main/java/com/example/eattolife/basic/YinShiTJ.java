@@ -12,6 +12,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
@@ -23,6 +24,7 @@ import com.example.eattolife.FoodEditActivity;
 import com.example.eattolife.FoodInfo;
 import com.example.eattolife.FoodRecord;
 import com.example.eattolife.LvFoodInfoAdapter;
+import com.example.eattolife.OnAddBtnClickListener;
 import com.example.eattolife.OnDelBtnClickListener;
 import com.example.eattolife.OnEditBtnClickListener;
 import com.example.eattolife.sql.DbOpenHelper;
@@ -42,6 +44,7 @@ public class YinShiTJ extends AppCompatActivity implements View.OnClickListener 
     private FoodDao foodDao; //用户自定义添加食物的数据库操作类
 
     private List<FoodInfo> foodInfoList; //食物信息集合
+    private List<FoodRecord> foodRecordList; //饮食信息记录集合
     LvFoodInfoAdapter lvFoodInfoAdapter; //食物信息数据适配器
 
     private ListView lv_foodInfo; //用户饮食列表
@@ -186,7 +189,28 @@ public class YinShiTJ extends AppCompatActivity implements View.OnClickListener 
                         .create().show();
             }
         });
+
+        //添加按钮的操作
+        lvFoodInfoAdapter.setOnAddBtnClickListener(new OnAddBtnClickListener() {
+            @Override
+            public void onAddBtnClick(View v, int position) {
+                //删除方法
+                final FoodInfo item = foodInfoList.get(position);
+                new AlertDialog.Builder(YinShiTJ.this)
+                        .setTitle("删除确认")
+                        .setMessage("您确定要删除吗？")
+                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                doAddFoodRecord(item);
+                            }
+                        })
+                        .setNegativeButton("取消", null)
+                        .create().show();
+            }
+        });
     }
+
 
     /**
      * 执行删除用户饮食记录的方法
@@ -228,5 +252,35 @@ public class YinShiTJ extends AppCompatActivity implements View.OnClickListener 
                 handler.sendMessage(msg);
             }
         }).start(); //!!start
+    }
+
+    //确定（保存）的点击事件处理
+    public void doAddFoodRecord(FoodInfo foodRecord) { //把foodinfo提取出来作为foodRecord
+        final int foodRecordID = foodRecord.getFoodID();
+        final String foodRecordName = foodRecord.getFoodName();
+        final float foodRecordCalorie = foodRecord.getFoodCalorie();
+
+        final FoodRecord item = new FoodRecord();
+        item.setFoodRecordID(foodRecordID);
+        item.setFoodRecordName(foodRecordName);
+        item.setFoodRecordCalorie(foodRecordCalorie);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                final int iRow = foodDao.addFoodRecord(item);
+                mainHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (iRow > 0) {
+                            CommonUtils.showShortMsg(getApplicationContext(), "已成功记录饮食！");
+                        } else {
+                            CommonUtils.showShortMsg(getApplicationContext(), "饮食记录失败！");
+                        }
+                        setResult(1);
+                        finish();
+                    }
+                });
+            }
+        }).start();
     }
 }
