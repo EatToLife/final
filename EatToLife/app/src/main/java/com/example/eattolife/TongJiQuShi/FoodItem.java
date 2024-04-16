@@ -1,11 +1,11 @@
-package com.example.eattolife;
+package com.example.eattolife.TongJiQuShi;
 
 public class FoodItem {
     private String name;
     private int weight;  // 克重
     private int calories;
 
-    public FoodItem(String name, int weight, int calories) {
+    public FoodItem(String name, int calories, int i) {
         this.name = name;
         this.weight = weight;
         this.calories = calories;

@@ -1,4 +1,4 @@
-package com.example.eattolife;
+package com.example.eattolife.basic;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;

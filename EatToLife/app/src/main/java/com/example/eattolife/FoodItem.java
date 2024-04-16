@@ -4,7 +4,7 @@ public class FoodItem {
     private String name;
     private int calories;
 
-    public FoodItem(String name, int calories) {
+    public FoodItem(String name, int calories, int i) {
         this.name = name;
         this.calories = calories;
     }

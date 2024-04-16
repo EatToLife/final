@@ -166,20 +166,20 @@
             android:textSize="19sp" />
 
         <Button
-            android:id="@+id/addBreakfast"
+            android:id="@+id/foodRecordQuery"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="早餐 +"
+            android:text="饮食记录"
             android:textColor="#000000"
             android:textSize="19sp" />
 
         <Button
-            android:id="@+id/addLunch"
+            android:id="@+id/foodKLLQuery"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="午餐"
+            android:text="食物卡路里表"
             android:textColor="#000000"
             android:textSize="19sp" />
 
@@ -241,6 +241,7 @@
         </LinearLayout>
 
         <Button
+            android:id="@+id/YunDongKLLBQuery"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -280,6 +281,7 @@
         android:orientation="horizontal">
 
         <Button
+            android:id="@+id/jianKangDA"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -288,6 +290,7 @@
             android:textSize="10sp" />
 
         <Button
+            android:id="@+id/jianKangTJ"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -303,21 +306,8 @@
             android:textColor="#000000"
             android:textSize="10sp" />
 
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="健康计算器"
-            android:textColor="#000000"
-            android:textSize="10sp" />
 
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="卡路里查询"
-            android:textColor="#000000"
-            android:textSize="10sp" />
+
     </LinearLayout>
 
 </LinearLayout>

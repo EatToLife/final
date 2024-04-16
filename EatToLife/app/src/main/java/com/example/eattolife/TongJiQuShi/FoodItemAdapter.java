@@ -27,11 +27,9 @@ public class FoodItemAdapter extends ArrayAdapter<FoodItem> {
 
         // 找到布局中的 TextView 并设置文本
         TextView nameTextView = convertView.findViewById(R.id.textViewFoodName);
-        TextView weightTextView = convertView.findViewById(R.id.textViewFoodWeight);
         TextView caloriesTextView = convertView.findViewById(R.id.textViewCalories);
 
         nameTextView.setText(foodItem.getName());
-        weightTextView.setText(String.format("%d克", foodItem.getWeight()));
         caloriesTextView.setText(String.format("%d卡路里", foodItem.getCalories()));
 
         return convertView;

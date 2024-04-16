@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.eattolife.AddFoodRecord;
+import com.example.eattolife.FoodAddActivity;
 import com.example.eattolife.R;
 
 public class Wo extends AppCompatActivity {
@@ -28,15 +28,60 @@ public class Wo extends AppCompatActivity {
             }
         });
 
-        //早餐添加 跳转
-        Button addBreakfast = findViewById(R.id.addBreakfast);
-        addBreakfast.setOnClickListener(new View.OnClickListener() {
+        //饮食记录 跳转
+        Button foodRecordQuery = findViewById(R.id.foodRecordQuery);
+        foodRecordQuery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
-                intent.setClass(Wo.this, AddFoodRecord.class); //从Wo跳转到AddFoodRecord
+                intent.setClass(Wo.this, FoodAddActivity.class); //从Wo跳转到AddFoodRecord
                 startActivity(intent);
             }
         });
+
+        //健康档案 跳转
+        Button jianKangDA = findViewById(R.id.jianKangDA);
+        jianKangDA.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(Wo.this, JianKangDA.class); //从Wo跳转到AddFoodRecord
+                startActivity(intent);
+            }
+        });
+
+        //健康统计 跳转
+        Button jianKangTJ = findViewById(R.id.jianKangTJ);
+        jianKangTJ.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(Wo.this, JianKangTJ.class); //从Wo跳转到AddFoodRecord
+                startActivity(intent);
+            }
+        });
+
+        //食物卡路里查询
+        Button foodKLLQuery = findViewById(R.id.foodKLLQuery);
+        foodKLLQuery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(Wo.this, ShiWuKLLB.class); //从Wo跳转到AddFoodRecord
+                startActivity(intent);
+            }
+        });
+
+        //食物卡路里查询
+        Button YunDongKLLBQuery = findViewById(R.id.YunDongKLLBQuery);
+        YunDongKLLBQuery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(Wo.this, YunDongKLLB.class); //从Wo跳转到AddFoodRecord
+                startActivity(intent);
+            }
+        });
+
     }
 }
