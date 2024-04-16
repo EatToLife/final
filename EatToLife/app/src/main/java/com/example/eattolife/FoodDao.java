@@ -71,11 +71,12 @@ public class FoodDao extends DbOpenHelper {
         int iRow = 0;
         try{
             getConnection(); //获取连接信息
-            String sql = "insert into foodrecord(foodRecordDt, foodName, foodCalorie) values(?,?,?)";
+            String sql = "insert into foodrecord(foodRecordID, foodRecordDt, foodRecordName, foodRecordCalorie) values(?,?,?,?)";
             pStmt = conn.prepareStatement(sql);
-            pStmt.setString(1, item.getFoodRecordDt());
-            pStmt.setString(2,item.getFoodRecordName());
-            pStmt.setFloat(3, item.getFoodRecordCalorie());
+            pStmt.setInt(1, item.getFoodRecordID());
+            pStmt.setString(2,item.getFoodRecordDt());
+            pStmt.setString(3,item.getFoodRecordName());
+            pStmt.setFloat(4, item.getFoodRecordCalorie());
             // pStmt.setString(4,item.getFoodPic());
             iRow = pStmt.executeUpdate();
         }catch (Exception ex) {

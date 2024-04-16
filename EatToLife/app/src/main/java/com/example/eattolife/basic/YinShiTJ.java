@@ -32,6 +32,7 @@ import com.example.eattolife.sql.MySqlHelp;
 import com.example.eattolife.R;
 import com.example.eattolife.tools.CommonUtils;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class YinShiTJ extends AppCompatActivity implements View.OnClickListener {
@@ -194,19 +195,9 @@ public class YinShiTJ extends AppCompatActivity implements View.OnClickListener 
         lvFoodInfoAdapter.setOnAddBtnClickListener(new OnAddBtnClickListener() {
             @Override
             public void onAddBtnClick(View v, int position) {
-                //删除方法
+                //添加方法
                 final FoodInfo item = foodInfoList.get(position);
-                new AlertDialog.Builder(YinShiTJ.this)
-                        .setTitle("删除确认")
-                        .setMessage("您确定要删除吗？")
-                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                doAddFoodRecord(item);
-                            }
-                        })
-                        .setNegativeButton("取消", null)
-                        .create().show();
+                doAddFoodRecord(item);
             }
         });
     }
@@ -259,9 +250,11 @@ public class YinShiTJ extends AppCompatActivity implements View.OnClickListener 
         final int foodRecordID = foodRecord.getFoodID();
         final String foodRecordName = foodRecord.getFoodName();
         final float foodRecordCalorie = foodRecord.getFoodCalorie();
+        final String foodRecordDt = CommonUtils.getDateStrFromNow();
 
         final FoodRecord item = new FoodRecord();
         item.setFoodRecordID(foodRecordID);
+        item.setFoodRecordDt(foodRecordDt);
         item.setFoodRecordName(foodRecordName);
         item.setFoodRecordCalorie(foodRecordCalorie);
         new Thread(new Runnable() {

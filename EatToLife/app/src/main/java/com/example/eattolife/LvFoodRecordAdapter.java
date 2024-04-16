@@ -76,13 +76,13 @@ public class LvFoodRecordAdapter extends BaseAdapter {
 
         //进行数据填充
         final FoodRecord item = foodRecordList.get(position);
-        viewHolder.foodDate.setText(item.getFoodDate());
-        viewHolder.foodMeal.setText(item.getFoodMeal());
-        viewHolder.foodCalorie.setText(String.format(Locale.getDefault(), "%.1f.", item.getFoodCalorie()));
+        viewHolder.foodRecordID.setText(item.getFoodRecordID());
+        viewHolder.foodRecordName.setText(item.getFoodRecordName());
+        viewHolder.foodRecordCalorie.setText(String.format(Locale.getDefault(), "%.1f.", item.getFoodRecordCalorie()));
         //viewHolder.foodPic.setImageResource(R.drawable.your_image_name); //图片加载
 
-        //修改按钮的点击事件
-        viewHolder.iv_edit.setOnClickListener(new View.OnClickListener() {
+        //添加按钮的点击事件
+        viewHolder.addFoodRecord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (onEditBtnClickListener != null) {
@@ -91,7 +91,7 @@ public class LvFoodRecordAdapter extends BaseAdapter {
         });
 
         //删除按钮的点击事件
-        viewHolder.iv_delete.setOnClickListener(new View.OnClickListener() {
+        viewHolder.deleteFoodRecord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (onDelBtnClickListener != null) {
@@ -104,7 +104,7 @@ public class LvFoodRecordAdapter extends BaseAdapter {
 
     //自定义内部类
     private class ViewHolder {
-        private TextView foodRecordID, foodRecordName, foodRecordCalorie;
+        private TextView foodRecordID, foodRecordName, foodRecordCalorie, foodRecordDt;
         private ImageView deleteFoodRecord, addFoodRecord;
     }
 }

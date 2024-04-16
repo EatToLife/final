@@ -17,10 +17,10 @@ import com.example.eattolife.basic.YinShiTJ;
 import com.example.eattolife.tools.CommonUtils;
 
 public class FoodEditActivity extends AppCompatActivity implements View.OnClickListener {
-    private EditText foodName, foodPrice, foodCalorie;
+    private EditText ed_foodName, ed_foodPrice, ed_foodCalorie;
     private TextView tv_creatDt;
 
-    private Button btn_cancel_click, btn_ok_click;
+    private Button ed_btn_cancel_click, ed_btn_ok_click;
 
     private FoodInfo foodInfoEdit; //当前要修改的饮食信息
     private FoodDao foodDao; //用户数据操作类实例
@@ -34,9 +34,9 @@ public class FoodEditActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food_edit);
 
-        foodName = findViewById(R.id.foodName);
-        foodPrice = findViewById(R.id.foodPrice);
-        foodCalorie = findViewById(R.id.foodCalorie);
+        ed_foodName = findViewById(R.id.ed_foodName);
+        ed_foodPrice = findViewById(R.id.ed_foodPrice);
+        ed_foodCalorie = findViewById(R.id.ed_foodCalorie);
 
         tv_creatDt = findViewById(R.id.tv_creatDt);
 
@@ -44,20 +44,21 @@ public class FoodEditActivity extends AppCompatActivity implements View.OnClickL
         if (bundle != null) {
             foodInfoEdit = (FoodInfo) bundle.getSerializable("foodFoodRdit");
 
-            foodName.setText(foodInfoEdit.getFoodName());
-            foodPrice.setText(foodInfoEdit.getFoodPrice());
-            foodCalorie.setText((int) foodInfoEdit.getFoodCalorie());
+            assert foodInfoEdit != null;
+            ed_foodName.setText(foodInfoEdit.getFoodName());
+            ed_foodPrice.setText(foodInfoEdit.getFoodPrice());
+            ed_foodCalorie.setText((int) foodInfoEdit.getFoodCalorie());
         }
 
         foodDao = new FoodDao();
         mainHandler = new Handler(getMainLooper());
 
 
-        btn_cancel_click = findViewById(R.id.btn_cancel_click);
-        btn_ok_click = findViewById(R.id.btn_ok_click);
+        ed_btn_cancel_click = findViewById(R.id.ed_btn_cancel_click);
+        ed_btn_ok_click = findViewById(R.id.ed_btn_ok_click);
 
-        btn_cancel_click.setOnClickListener(this);
-        btn_ok_click.setOnClickListener(this);
+        ed_btn_cancel_click.setOnClickListener(this);
+        ed_btn_ok_click.setOnClickListener(this);
     }
 
     public void onClick(View v) {
@@ -74,19 +75,19 @@ public class FoodEditActivity extends AppCompatActivity implements View.OnClickL
 
     //确定修改（保存）的点击事件处理
     public void ok() {
-        final String _foodName = foodName.getText().toString().trim();
-        final String _foodPrice = foodPrice.getText().toString().trim();
-        final String _foodCalorie = foodCalorie.getText().toString().trim();
+        final String _foodName = ed_foodName.getText().toString().trim();
+        final String _foodPrice = ed_foodPrice.getText().toString().trim();
+        final String _foodCalorie = ed_foodCalorie.getText().toString().trim();
 
         if (TextUtils.isEmpty(_foodName)) {
             CommonUtils.showShortMsg(this, "请输入食物名称！");
-            foodName.requestFocus();
+            ed_foodName.requestFocus();
         } else if (TextUtils.isEmpty(_foodPrice)) {
             CommonUtils.showShortMsg(this, "请输入食物价格！");
-            foodPrice.requestFocus();
+            ed_foodPrice.requestFocus();
         } else if (TextUtils.isEmpty(_foodCalorie)) {
             CommonUtils.showShortMsg(this, "请输入食物热量！");
-            foodCalorie.requestFocus();
+            ed_foodCalorie.requestFocus();
         } else {
             foodInfoEdit.setFoodName(_foodName);
             foodInfoEdit.setFoodPrice(Integer.parseInt(_foodPrice));
