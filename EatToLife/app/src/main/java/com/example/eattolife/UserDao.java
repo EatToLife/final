@@ -105,6 +105,32 @@ public class UserDao extends DbOpenHelper {
         return iRow;
     }
     /**
+     * 修改用户信息 U
+     * @param item 要修改的用户信息
+     * @return int 影响的行数
+     */
+    public int updateUser(Userinfo item){
+        int iRow = 0;
+        try{
+            getConnection();//取得连接信息
+            String sql ="update userinfo set age=?, sex=?, height=?, weight=?, foodLike=?, sportLike=? where userID=?";
+            pStmt = conn.prepareStatement(sql);
+            pStmt.setInt(1,item.getAge());
+            pStmt.setString(2,item.getSex());
+            pStmt.setDouble(3,item.getHeight());
+            pStmt.setDouble(4,item.getWeight());
+            pStmt.setString(5,item.getFoodLike());
+            pStmt.setString(6,item.getSportLike());
+            pStmt.setInt(7,item.getUserID());
+            iRow = pStmt.executeUpdate();
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }finally {
+            closeAll();
+        }
+        return iRow;
+    }
+    /**
      * 修改用户密码 U
      * @param item 要修改的用户信息
      * @return int 影响的行数
@@ -113,7 +139,7 @@ public class UserDao extends DbOpenHelper {
         int iRow = 0;
         try{
             getConnection();//取得连接信息
-            String sql ="update userinfo set password=? where id=?";
+            String sql ="update userinfo set password=? where userID=?";
             pStmt = conn.prepareStatement(sql);
             pStmt.setString(1,item.getPassword());
             iRow = pStmt.executeUpdate();

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:padding="8dp"
+    android:orientation="vertical">
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/et_bg"
+        android:columnCount="2"
+        android:padding="5dp"
+        android:rowCount="3">
+
+        <TextView
+            android:id="@+id/tv_age"
+            android:layout_width="180dp"
+            android:layout_height="100dp"
+            android:layout_margin="10dp"
+            android:text="年龄"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/tv_sex"
+            android:layout_width="180dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="10dp"
+            android:text="性别"
+            android:textFontWeight="1"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/tv_height"
+            android:layout_width="180dp"
+            android:layout_height="100dp"
+            android:layout_margin="10dp"
+            android:layout_marginTop="10dp"
+            android:text="身高"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/tv_weight"
+            android:layout_width="180dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="10dp"
+            android:text="体重"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/tv_foodLike"
+            android:layout_width="180dp"
+            android:layout_height="100dp"
+            android:layout_margin="10dp"
+            android:text="喜欢的食物"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/tv_sportLike"
+            android:layout_width="180dp"
+            android:layout_height="100dp"
+            android:layout_margin="10dp"
+            android:text="喜欢的运动"
+            android:textSize="25sp" />
+
+    </GridLayout>
+</LinearLayout>
