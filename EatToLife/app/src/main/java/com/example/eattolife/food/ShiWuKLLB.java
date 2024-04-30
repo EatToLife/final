@@ -1,4 +1,4 @@
-package com.example.eattolife.TongJiQuShi;
+package com.example.eattolife.food;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,8 +10,9 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.eattolife.FoodItem;
+import com.example.eattolife.food.FoodItem;
 import com.example.eattolife.R;
+import com.example.eattolife.FoodItemAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +35,7 @@ public class ShiWuKLLB extends AppCompatActivity {
 
         initializeFoodData();
 
-        com.example.eattolife.FoodItemAdapter adapter = new com.example.eattolife.FoodItemAdapter(this, allFoods);
+        FoodItemAdapter adapter = new FoodItemAdapter(this, allFoods);
         listView.setAdapter(adapter);
 
         buttonChaXunSW.setOnClickListener(new View.OnClickListener() {

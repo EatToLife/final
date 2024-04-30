@@ -6,6 +6,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+
+import com.example.eattolife.R;
+import com.example.eattolife.food.FoodItem;
+
 import java.util.List;
 
 public class FoodItemAdapter extends ArrayAdapter<FoodItem> {

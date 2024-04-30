@@ -10,17 +10,19 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.eattolife.LvUserinfoAdapter;
 import com.example.eattolife.R;
-import com.example.eattolife.UserDao;
-import com.example.eattolife.Userinfo;
-import com.example.eattolife.ZhangHaoXX;
+import com.example.eattolife.sql.UserDao;
+import com.example.eattolife.user.Userinfo;
+import com.example.eattolife.user.ZhangHaoXX;
 
 import java.util.List;
 
 public class JianKangDA extends AppCompatActivity {
 
+    private String cell;
     private ImageButton me;
     private ImageView iv_return;
     private ImageView iv_edit1;
@@ -29,6 +31,8 @@ public class JianKangDA extends AppCompatActivity {
     private LvUserinfoAdapter lvUserinfoAdapter;//用户信息数据适配器
     private ListView lv_user;//用户列表组件
     private Handler mainHandler;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,14 +51,15 @@ public class JianKangDA extends AppCompatActivity {
     }
 
     private void loadUserDb() {
+        Userinfo item = new Userinfo();
         new Thread(new Runnable() {
             @Override
             public void run() {
-                userinfoList = userDao.getAllUserList();//获取所有的用户数据
+                //userinfoList = userDao.getAllUserList();//获取所有的用户数据
                 mainHandler.post(new Runnable() {
                     @Override
                     public void run() {
-                        showLvData();
+                        //showLvData();
                     }
                 });
             }
@@ -80,6 +85,7 @@ public class JianKangDA extends AppCompatActivity {
             } else if (v.getId() == R.id.me) {
                 Intent intent=new Intent();
                 intent.setClass(JianKangDA.this, ZhangHaoXX.class);
+                cell = getIntent().getStringExtra("cell");
                 startActivity(intent);
             }
 

@@ -1,4 +1,4 @@
-package com.example.eattolife;
+package com.example.eattolife.exercise;
 
 public class ExerciseItem {
     private String name;

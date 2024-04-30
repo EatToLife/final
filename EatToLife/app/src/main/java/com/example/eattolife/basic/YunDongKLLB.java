@@ -10,7 +10,7 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.eattolife.ExerciseItem;
+import com.example.eattolife.exercise.ExerciseItem;
 import com.example.eattolife.R;
 
 import java.util.ArrayList;

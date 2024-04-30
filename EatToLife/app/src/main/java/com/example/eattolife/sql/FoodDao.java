@@ -1,7 +1,7 @@
-package com.example.eattolife;
+package com.example.eattolife.sql;
 
-import com.example.eattolife.FoodInfo;
-import com.example.eattolife.sql.DbOpenHelper;
+import com.example.eattolife.food.FoodInfo;
+import com.example.eattolife.food.FoodRecord;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -10,7 +10,7 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.eattolife.FoodItem;
+import com.example.eattolife.food.FoodItem;
 import com.example.eattolife.R;
 
 import java.util.ArrayList;
@@ -121,9 +121,9 @@ public class ShiWuKLLB extends AppCompatActivity {
 //import android.widget.ListView;
 //import android.widget.Toast;
 //
-//import com.example.eattolife.FoodItem;
+//import com.example.eattolife.food.FoodItem;
 //import com.example.eattolife.R;
-//import com.example.eattolife.ShiWuSJK;
+//import com.example.eattolife.food.ShiWuSJK;
 //
 //import java.io.FileInputStream;
 //import java.io.IOException;

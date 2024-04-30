@@ -1,4 +1,4 @@
-package com.example.eattolife;
+package com.example.eattolife.exercise;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

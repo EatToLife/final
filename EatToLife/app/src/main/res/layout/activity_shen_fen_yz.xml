@@ -45,7 +45,7 @@
             android:hint="@string/input_cell"
             android:inputType="number"
             android:maxLength="11"
-            android:text="18867529266"
+            android:text="18458096021"
             android:textColor="@color/black"
             android:textColorHint="@color/grey"
             android:textSize="@dimen/font_size"/>
@@ -76,7 +76,7 @@
             android:hint="@string/input_password"
             android:inputType="numberPassword"
             android:maxLength="6"
-            android:text="458290"
+            android:text="123456"
             android:textColor="@color/black"
             android:textColorHint="@color/grey"
             android:textSize="@dimen/font_size" />

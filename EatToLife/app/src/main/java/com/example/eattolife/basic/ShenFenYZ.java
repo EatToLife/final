@@ -13,9 +13,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.eattolife.R;
-import com.example.eattolife.UserDao;
-import com.example.eattolife.Userinfo;
-import com.example.eattolife.ZhaoHuiMM;
+import com.example.eattolife.sql.UserDao;
+import com.example.eattolife.user.Userinfo;
+import com.example.eattolife.user.ZhaoHuiMM;
 import com.example.eattolife.tools.CommonUtils;
 import com.example.eattolife.util.ViewUtil;
 
@@ -80,14 +80,15 @@ public class ShenFenYZ extends AppCompatActivity implements View.OnClickListener
                     mainHandler.post(new Runnable() {
                         @Override
                         public void run() {
-                            //if (item == null) {
-                            //CommonUtils.showDlgMsg(ShenFenYZ.this, "手机号或密码错误");
-                            //} else {
-                            CommonUtils.showLongMsg(ShenFenYZ.this, "登录成功，进入健康档案");
+                            if (item == null) {
+                            CommonUtils.showDlgMsg(ShenFenYZ.this, "手机号或密码错误");
+                            } else {
+                            CommonUtils.showLongMsg(ShenFenYZ.this, "登录成功，进入主界面");
                             Intent intent = new Intent();
                             intent.setClass(ShenFenYZ.this, Wo.class);
+                            intent.putExtra("cell", cell);
                             startActivity(intent);
-                            //}
+                            }
                         }
                     });
                 }

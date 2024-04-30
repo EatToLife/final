@@ -1,4 +1,4 @@
-package com.example.eattolife;
+package com.example.eattolife.food;
 
 public class FoodItem {
     private String name;

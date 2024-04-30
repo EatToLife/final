@@ -3,21 +3,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="今天吃啥？"
         android:textColor="#000000"
-        android:textSize="19sp" />
-
+        android:textSize="29sp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="还可以吃 = 预算 - 饮食 + 运动"
         android:textColor="#000000"
-        android:textSize="19sp" />
+        android:textSize="22sp" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -27,7 +28,7 @@
             android:id="@+id/textViewCalorieBalance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/material_motion_easing_decelerated"
+            android:text="9999KJ"
             android:textColor="#000000"
             android:textSize="19sp" />
 
@@ -42,13 +43,13 @@
             android:id="@+id/textViewCalorieNeeds"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="预算"
+            android:text="      10000"
             android:textColor="#000000"
             android:textSize="19sp" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="-"
+            android:text="      -"
             android:textColor="#000000"
             android:textSize="19sp" />
 
@@ -56,14 +57,14 @@
             android:id="@+id/textViewCaloriesConsumed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="饮食"
+            android:text="      饮食"
             android:textColor="#000000"
             android:textSize="19sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="+"
+            android:text="      +"
             android:textColor="#000000"
             android:textSize="19sp" />
 
@@ -71,7 +72,7 @@
             android:id="@+id/textViewCaloriesBurned"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="运动"
+            android:text="      运动"
             android:textColor="#000000"
             android:textSize="19sp" />
 
@@ -152,6 +153,13 @@
             android:textColor="#000000"
             android:textSize="19sp" />
     </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:gravity="center"
+        android:textColor="#000000"
+        android:textSize="19sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -202,6 +210,14 @@
             android:textSize="19sp" />
     </LinearLayout>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:gravity="center"
+        android:textColor="#000000"
+        android:textSize="19sp" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -214,28 +230,28 @@
 
             <TextView
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
                 android:text="运动"
-                android:gravity="center"
                 android:textColor="#000000"
                 android:textSize="19sp" />
 
             <TextView
                 android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="2"
-                android:layout_height="wrap_content"
-                android:text="须消耗热量"
                 android:gravity="center"
+                android:text="须消耗热量"
                 android:textColor="#000000"
                 android:textSize="19sp" />
 
             <TextView
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:text="KJ"
+                android:layout_weight="1"
                 android:gravity="left"
+                android:text="KJ"
                 android:textColor="#000000"
                 android:textSize="19sp" />
         </LinearLayout>
@@ -255,17 +271,17 @@
 
             <TextView
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:text="KJ"
+                android:layout_weight="1"
                 android:gravity="center"
+                android:text="KJ"
                 android:textColor="#000000"
                 android:textSize="19sp" />
 
             <EditText
                 android:layout_width="0dp"
-                android:layout_weight="3"
                 android:layout_height="wrap_content"
+                android:layout_weight="3"
                 android:text="身高"
                 android:textColor="#000000"
                 android:textSize="19sp" />
@@ -290,15 +306,6 @@
             android:textSize="10sp" />
 
         <Button
-            android:id="@+id/jianKangTJ"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="健康统计图"
-            android:textColor="#000000"
-            android:textSize="10sp" />
-
-        <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -306,7 +313,14 @@
             android:textColor="#000000"
             android:textSize="10sp" />
 
-
+        <Button
+            android:id="@+id/jianKangTJ"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="健康统计图"
+            android:textColor="#000000"
+            android:textSize="10sp" />
 
     </LinearLayout>
 

@@ -1,4 +1,4 @@
-package com.example.eattolife;
+package com.example.eattolife.user;
 import java.io.Serializable;
 
 /**

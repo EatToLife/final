@@ -1,4 +1,4 @@
-package com.example.eattolife;
+package com.example.eattolife.food;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,8 +10,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.example.eattolife.basic.Wo;
+import com.example.eattolife.R;
 import com.example.eattolife.basic.YinShiTJ;
+import com.example.eattolife.sql.FoodDao;
 import com.example.eattolife.tools.CommonUtils;
 
 public class FoodAddActivity extends AppCompatActivity implements View.OnClickListener {

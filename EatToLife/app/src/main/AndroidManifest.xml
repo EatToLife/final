@@ -18,14 +18,16 @@
         <activity android:name=".basic.YinShiTJ" />
         <activity android:name=".basic.JianKangTJ" />
         <activity android:name=".basic.JianKangDA" />
+        <activity android:name=".user.ZhangHaoXX"/>
+        <activity android:name=".user.ZhaoHuiMM"/>
         <activity android:name=".basic.YunDongKLLB" />
         <activity android:name=".basic.ShiWuKLLB" />
-        <activity android:name=".FoodInfo"/>
-        <activity android:name=".FoodAddActivity"/>
-        <activity android:name=".FoodEditActivity" />
+        <activity android:name=".food.FoodInfo"/>
+        <activity android:name=".food.FoodAddActivity"/>
+        <activity android:name=".food.FoodEditActivity" />
 
         <activity
-            android:name=".basic.ShenFenYZ"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -8,7 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.eattolife.basic.YinShiTJ;
+import com.example.eattolife.food.FoodInfo;
 
 import java.util.List;
 import java.util.Locale;

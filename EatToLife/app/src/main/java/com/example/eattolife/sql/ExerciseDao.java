@@ -1,4 +1,4 @@
-package com.example.eattolife;
+package com.example.eattolife.sql;
 
 import com.example.eattolife.basic.Wo;
 

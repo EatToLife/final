@@ -7,11 +7,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.eattolife.FoodAddActivity;
+import com.example.eattolife.food.FoodAddActivity;
 import com.example.eattolife.R;
 
 public class Wo extends AppCompatActivity {
-
+    private String cell;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +57,8 @@ public class Wo extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent();
                 intent.setClass(Wo.this, JianKangTJ.class); //从Wo跳转到AddFoodRecord
+                cell = getIntent().getStringExtra("cell");
+                intent.putExtra("cell", cell);
                 startActivity(intent);
             }
         });

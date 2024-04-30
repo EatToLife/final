@@ -12,17 +12,16 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.eattolife.FoodAddActivity;
-import com.example.eattolife.FoodDao;
-import com.example.eattolife.FoodEditActivity;
-import com.example.eattolife.FoodInfo;
-import com.example.eattolife.FoodRecord;
+import com.example.eattolife.food.FoodAddActivity;
+import com.example.eattolife.sql.FoodDao;
+import com.example.eattolife.food.FoodEditActivity;
+import com.example.eattolife.food.FoodInfo;
+import com.example.eattolife.food.FoodRecord;
 import com.example.eattolife.LvFoodInfoAdapter;
 import com.example.eattolife.OnAddBtnClickListener;
 import com.example.eattolife.OnDelBtnClickListener;
@@ -32,7 +31,6 @@ import com.example.eattolife.sql.MySqlHelp;
 import com.example.eattolife.R;
 import com.example.eattolife.tools.CommonUtils;
 
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class YinShiTJ extends AppCompatActivity implements View.OnClickListener {
@@ -184,7 +182,10 @@ public class YinShiTJ extends AppCompatActivity implements View.OnClickListener 
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 doDelFoodRecord(item.getFoodID());
-                            }
+
+                                // 删除成功后更新界面数据
+                                foodInfoList.remove(item);
+                                lvFoodInfoAdapter.notifyDataSetChanged();                            }
                         })
                         .setNegativeButton("取消", null)
                         .create().show();

@@ -1,4 +1,4 @@
-package com.example.eattolife;
+package com.example.eattolife.food;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,23 +7,24 @@ import android.webkit.WebView;
 
 import com.example.eattolife.R;
 
-public class YunDongZBTJ extends AppCompatActivity {
+public class ShiWuZBTJ extends AppCompatActivity {
 
     private WebView webview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_yun_dong_zbtj);
+        setContentView(R.layout.activity_shi_wu_zbtj);
         init();
         SleepThread();
     }
 
+
     private void init() {
-        webview = findViewById(R.id.chartshow_TiZhongBMITJ);
+        webview = findViewById(R.id.chartshow_ShiWuZBTJ);
         webview.getSettings().setJavaScriptEnabled(true);
         webview.getSettings().setAllowFileAccess(true);
-        webview.loadUrl("file:///android_asset/echarts_YunDongzbT.html");
+        webview.loadUrl("file:///android_asset/echarts_ShiWuzbT.html");
     }
 
     private void SleepThread(){

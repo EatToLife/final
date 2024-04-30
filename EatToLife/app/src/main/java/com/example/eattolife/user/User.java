@@ -1,4 +1,4 @@
-package com.example.eattolife;
+package com.example.eattolife.user;
 
 public class User {
     public double getWeight() {

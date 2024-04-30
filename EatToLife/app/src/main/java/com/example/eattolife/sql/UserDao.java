@@ -1,6 +1,6 @@
-package com.example.eattolife;
+package com.example.eattolife.sql;
 
-import com.example.eattolife.sql.DbOpenHelper;
+import com.example.eattolife.user.Userinfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +19,7 @@ public class UserDao extends DbOpenHelper {
             String sql = "select * from userinfo";
             pStmt = conn.prepareStatement(sql);
             rs= pStmt.executeQuery();
-            if(rs.next()){
+            while(rs.next()){
                 Userinfo item = new Userinfo();
                 item.setUserID(rs.getInt("userID"));
                 item.setUserName(rs.getString("userName"));

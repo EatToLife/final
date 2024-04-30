@@ -1,4 +1,4 @@
-package com.example.eattolife;
+package com.example.eattolife.food;
 
 import java.io.Serializable;
 
