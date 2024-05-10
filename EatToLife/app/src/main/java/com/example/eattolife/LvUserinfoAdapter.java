@@ -17,6 +17,7 @@ public class LvUserinfoAdapter extends BaseAdapter {
 
     private OnEditBtnClickListener onEditBtnClickListener; //修改按钮点击事件的监听实例
     private OnDelBtnClickListener onDelBtnClickListener; //删除按钮点击事件的监听实例
+    private ViewHolder viewHolder;
 
     public LvUserinfoAdapter() {
     }
@@ -30,13 +31,13 @@ public class LvUserinfoAdapter extends BaseAdapter {
         this.userinfoList = userinfoList;
     }
 
-    public void setOnEditBtnClickListener(OnEditBtnClickListener onEditBtnClickListener) {
+    /*public void setOnEditBtnClickListener(OnEditBtnClickListener onEditBtnClickListener) {
         this.onEditBtnClickListener = onEditBtnClickListener;
     }
 
     public void setOnDelBtnClickListener(OnDelBtnClickListener onDelBtnClickListener) {
         this.onDelBtnClickListener = onDelBtnClickListener;
-    }
+    }*/
 
     @Override
     public int getCount() {
@@ -55,9 +56,9 @@ public class LvUserinfoAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder viewHolder = null;
+        viewHolder = new ViewHolder();
         if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.activity_jian_kang_da, null);
+            convertView = LayoutInflater.from(context).inflate(R.layout.item_userinfo, parent, false);
             //food_list_item.xml加载条目布局，赋值给convertView变量 & 数据集合
             viewHolder = new ViewHolder();
 
@@ -67,13 +68,7 @@ public class LvUserinfoAdapter extends BaseAdapter {
             viewHolder.tv_weight = convertView.findViewById(R.id.tv_weight);
             viewHolder.tv_foodLike = convertView.findViewById(R.id.tv_foodLike);
             viewHolder.tv_sportLike = convertView.findViewById(R.id.tv_sportLike);
-            viewHolder.iv_edit1 = convertView.findViewById(R.id.iv_edit1);
-            viewHolder.iv_edit2 = convertView.findViewById(R.id.iv_edit2);
-            viewHolder.iv_edit3 = convertView.findViewById(R.id.iv_edit3);
-            viewHolder.iv_edit4 = convertView.findViewById(R.id.iv_edit4);
-            viewHolder.iv_edit5 = convertView.findViewById(R.id.iv_edit5);
-            viewHolder.iv_edit6 = convertView.findViewById(R.id.iv_edit6);
-
+            //viewHolder.iv_edit = convertView.findViewById(R.id.iv_edit);
             convertView.setTag(viewHolder); //给convertView列表视图做viewHolder标记
         }else {
             viewHolder = (ViewHolder) convertView.getTag();
@@ -81,57 +76,25 @@ public class LvUserinfoAdapter extends BaseAdapter {
 
         //进行数据填充
         final Userinfo item = userinfoList.get(position);
-        viewHolder.tv_age.setText(item.getAge());
-        viewHolder.tv_sex.setText(item.getSex());
-        viewHolder.tv_height.setText(String.format(Locale.getDefault(), "%.1f.", item.getHeight()));
-        viewHolder.tv_weight.setText(String.format(Locale.getDefault(), "%.2f.", item.getWeight()));
-        viewHolder.tv_foodLike.setText(item.getFoodLike());
-        viewHolder.tv_sportLike.setText(item.getSportLike());
+        viewHolder.tv_age.setText("年龄："+String.valueOf(item.getAge()));
+        viewHolder.tv_sex.setText("性别："+item.getSex());
+        viewHolder.tv_height.setText("身高："+String.format(Locale.getDefault(), "%.1f", item.getHeight()));
+        viewHolder.tv_weight.setText("体重："+String.format(Locale.getDefault(), "%.2f", item.getWeight()));
+        viewHolder.tv_foodLike.setText("喜欢的食物： "+item.getFoodLike());
+        viewHolder.tv_sportLike.setText("喜欢的运动： "+item.getSportLike());
         //viewHolder.foodPic.setImageResource(R.drawable.your_image_name); //图片加载
 
         //修改按钮的点击事件
-        viewHolder.iv_edit1.setOnClickListener(new View.OnClickListener() {
+        /*
+        viewHolder.iv_edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (onEditBtnClickListener != null) {
                     onEditBtnClickListener.onEditBtnClick(v, position);
-                }            }
-        });
-        viewHolder.iv_edit2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (onEditBtnClickListener != null) {
-                    onEditBtnClickListener.onEditBtnClick(v, position);
-                }            }
-        });
-        viewHolder.iv_edit3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (onEditBtnClickListener != null) {
-                    onEditBtnClickListener.onEditBtnClick(v, position);
-                }            }
-        });
-        viewHolder.iv_edit4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (onEditBtnClickListener != null) {
-                    onEditBtnClickListener.onEditBtnClick(v, position);
-                }            }
-        });
-        viewHolder.iv_edit5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (onEditBtnClickListener != null) {
-                    onEditBtnClickListener.onEditBtnClick(v, position);
-                }            }
-        });
-        viewHolder.iv_edit6.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (onEditBtnClickListener != null) {
-                    onEditBtnClickListener.onEditBtnClick(v, position);
-                }            }
-        });
+                }
+            }
+        });*/
+
 
         //删除按钮的点击事件
         /*
@@ -149,6 +112,6 @@ public class LvUserinfoAdapter extends BaseAdapter {
     //自定义内部类
     private class ViewHolder {
         private TextView tv_age, tv_sex, tv_height, tv_weight, tv_foodLike, tv_sportLike;
-        private ImageView  iv_edit1, iv_edit2, iv_edit3, iv_edit4, iv_edit5, iv_edit6;
+        //private ImageView  iv_edit;
     }
 }
