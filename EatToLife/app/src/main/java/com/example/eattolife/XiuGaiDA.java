@@ -1,5 +1,7 @@
 package com.example.eattolife;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -7,8 +9,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.eattolife.tools.CommonUtils;
 
@@ -40,7 +40,7 @@ public class XiuGaiDA extends AppCompatActivity {
         et_sportLike = findViewById(R.id.et_sportLike);
         b_save = findViewById(R.id.b_save);
 
-        b_save.setOnClickListener(new MyOnClickListener());
+        b_save.setOnClickListener(new XiuGaiDA.MyOnClickListener());
 
         Intent intent = getIntent();// 获取传递的intent
         user = (Userinfo) intent.getSerializableExtra("user");
@@ -104,7 +104,7 @@ public class XiuGaiDA extends AppCompatActivity {
 
                 @Override
                 protected void onPostExecute(Integer row){
-                    if(row !=null && row.intValue() > 0) {
+                    if(row !=null && row > 0) {
                         Log.d("XiuGaiDA", "更新成功");
                         CommonUtils.showShortMsg(XiuGaiDA.this, "保存成功");
                         finish();
