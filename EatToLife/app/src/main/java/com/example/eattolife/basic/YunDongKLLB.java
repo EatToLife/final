@@ -87,8 +87,8 @@ public class YunDongKLLB extends AppCompatActivity {
 
     private List<String> filterExercises(String query, List<ExerciseItem> exercises) {
         List<String> filtered = new ArrayList<>();
-        for (ExerciseItem item : exercises) {
-            if (item.getName().toLowerCase().contains(query.toLowerCase())) {
+        for (ExerciseItem item : exercises) {//自动输出exercises表中的每个数据
+            if (item.getName().toLowerCase().contains(query.toLowerCase())) {//将大写换成小写进行对比
                 filtered.add(item.getName() + " - " + item.getCalories() + "千卡/60分钟");
             }
         }
