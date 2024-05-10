@@ -2,6 +2,7 @@ package com.example.eattolife.basic;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -12,6 +13,20 @@ import com.example.eattolife.R;
 
 public class Wo extends AppCompatActivity {
     private String cell;
+    @Override
+    protected void onPause() {
+        // TODO Auto-generated method stub
+        super.onPause();
+        MusicServer.stop(this);
+    }
+
+
+    @Override
+    protected void onResume() {
+        // TODO Auto-generated method stub
+        super.onResume();
+        MusicServer.play(this, R.raw.loop);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +64,17 @@ public class Wo extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        //网页跳转
+        Button search = findViewById(R.id.search);
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                Intent intent = new Intent();
+                intent.setClass(Wo.this, InternetSearch.class); //从Wo跳转到AddFoodRecord
+                startActivity(intent);
+            }
+        });
         //健康统计 跳转
         Button jianKangTJ = findViewById(R.id.jianKangTJ);
         jianKangTJ.setOnClickListener(new View.OnClickListener() {
@@ -84,6 +109,7 @@ public class Wo extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
 
     }
 }

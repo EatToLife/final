@@ -14,7 +14,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EatToLife"
         tools:targetApi="31">
-        <activity android:name=".basic.Wo" />
+        <activity android:name=".basic.Wo"
+            android:exported="true"/>
+        <activity android:name=".basic.InternetSearch"
+            android:exported="true"/>
         <activity android:name=".basic.YinShiTJ" />
         <activity android:name=".basic.JianKangTJ" />
         <activity android:name=".basic.JianKangDA" />
@@ -25,7 +28,8 @@
         <activity android:name=".food.FoodInfo"/>
         <activity android:name=".food.FoodAddActivity"/>
         <activity android:name=".food.FoodEditActivity" />
-
+        <activity android:name=".basic.ShenFenYZ"
+            android:exported="true" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -37,6 +41,7 @@
         </activity>
         <activity android:name=".tools.Fragment" />
         <activity android:name=".tools.SpinnerActivity" />
+
     </application>
 
 </manifest>

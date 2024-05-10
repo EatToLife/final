@@ -138,6 +138,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
+
         private void merge(int start, int mid, int end) {
             int[] tempArray = new int[end - start + 1];
             int i = start, j = mid + 1, k = 0;
