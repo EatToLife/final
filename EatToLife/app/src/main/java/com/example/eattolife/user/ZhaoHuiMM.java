@@ -1,16 +1,14 @@
-package com.example.eattolife.user;
+package com.example.eattolife;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.eattolife.R;
+import com.example.eattolife.tools.CommonUtils;
 
 import java.util.Random;
 
@@ -21,6 +19,7 @@ public class ZhaoHuiMM extends AppCompatActivity implements View.OnClickListener
     private EditText et_password_first;
     private EditText et_password_second;
     private EditText et_code;
+    private Userinfo user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,11 +28,14 @@ public class ZhaoHuiMM extends AppCompatActivity implements View.OnClickListener
         et_password_first = findViewById(R.id.et_password_first);
         et_password_second = findViewById(R.id.et_password_second);
         et_code = findViewById(R.id.et_code);
-        //从上个页面获取要修改密码的手机号
-        mCell = getIntent().getStringExtra("cell");
 
         findViewById(R.id.b_code).setOnClickListener(this);
         findViewById(R.id.b_confirm).setOnClickListener(this);
+
+        Intent intent = getIntent();// 获取传递的intent
+        user = (Userinfo) intent.getSerializableExtra("user");
+        //获取要修改密码的手机号
+        mCell = user.getCell();
     }
 
     @Override
@@ -65,12 +67,15 @@ public class ZhaoHuiMM extends AppCompatActivity implements View.OnClickListener
                 Toast.makeText(this,"请输入正确的验证码",Toast.LENGTH_SHORT).show();
                 return;
             }
-            Toast.makeText(this,"密码修改成功",Toast.LENGTH_SHORT).show();
-            //以下把修改好的新密码返回上一个页面
-            Intent intent = new Intent();
-            intent.putExtra("new_password", password_first);
-            setResult(Activity.RESULT_OK, intent);
-            finish();
+            UserDao userDao = new UserDao();//用户数据库操作实例
+            int row = userDao.editUserPassword(user);
+            if(row>0) {
+                CommonUtils.showDlgMsg(ZhaoHuiMM.this, "密码修改成功");
+                //以下把修改好的新密码返回上一个页面
+                Intent intent = new Intent();
+                intent.setClass(ZhaoHuiMM.this, ShenFenYZ.class);
+                startActivity(intent);
+            }
         }
     }
 }
