@@ -116,6 +116,7 @@ public class JianKangDA extends AppCompatActivity {
             } else if (v.getId() == R.id.me) {
                 Intent intent=new Intent();
                 intent.setClass(JianKangDA.this, ZhangHaoXX.class);
+                intent.putExtra("user", user);
                 startActivity(intent);
             } else if (v.getId() == R.id.iv_edit) {
                 Intent intent=new Intent();

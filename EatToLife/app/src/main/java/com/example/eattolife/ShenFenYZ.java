@@ -1,9 +1,11 @@
 package com.example.eattolife;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -11,15 +13,33 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import com.example.eattolife.sql.DbOpenHelper;
 import com.example.eattolife.tools.CommonUtils;
 import com.example.eattolife.util.ViewUtil;
+
 
 
 public class ShenFenYZ extends AppCompatActivity implements View.OnClickListener {
 
     private EditText et_cell, et_password;
+    private TextView tv_forget;
+    private Button b_login;
     private UserDao userDao;//用户数据库操作类
+    private Userinfo user;
+    private DbOpenHelper dbOpenHelper; //数据库连接辅助
     private Handler mainHandler;//主线程
+    //复写线程
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(@NonNull Message msg){
+            //super.handleMessage(msg);
+            if(msg.what==0){
+                int count=(Integer)msg.obj;
+            }
+        }
+    };
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,15 +48,15 @@ public class ShenFenYZ extends AppCompatActivity implements View.OnClickListener
 
         et_cell = findViewById(R.id.et_cell);
         et_password = findViewById(R.id.et_password);
-        TextView tv_forget = findViewById(R.id.tv_forget);
-        Button b_login = findViewById(R.id.b_login);
+        tv_forget = findViewById(R.id.tv_forget);
+        b_login = findViewById(R.id.b_login);
         //给et_cell添加文本变更监听器
         et_cell.addTextChangedListener(new HideTextWatcher(et_cell, 11));
         //给et_password添加文本变更监听器
         et_password.addTextChangedListener(new HideTextWatcher(et_password, 6));
         tv_forget.setOnClickListener(this);
         b_login.setOnClickListener(this);
-        mainHandler = new Handler(getMainLooper());
+        mainHandler = new Handler(getMainLooper());//获取主线程
         userDao = new UserDao();
 
     }
@@ -49,7 +69,7 @@ public class ShenFenYZ extends AppCompatActivity implements View.OnClickListener
                 CommonUtils.showDlgMsg(ShenFenYZ.this, "请输入正确的手机号");
             }else {
                 Intent intent = new Intent(ShenFenYZ.this, ZhaoHuiMM.class);
-                intent.putExtra("cell", cell);
+                intent.putExtra("user", user);
                 startActivity(intent);
             }
         }else if(v.getId() == R.id.b_login){
@@ -71,18 +91,19 @@ public class ShenFenYZ extends AppCompatActivity implements View.OnClickListener
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    Userinfo item = userDao.getUserByCellAndPassword(cell, password);
+                    user = userDao.getUserByCellAndPassword(cell, password);
                     mainHandler.post(new Runnable() {
                         @Override
                         public void run() {
-                            //if (item == null) {
-                            //CommonUtils.showDlgMsg(ShenFenYZ.this, "手机号或密码错误");
-                            //} else {
-                            CommonUtils.showLongMsg(ShenFenYZ.this, "登录成功，进入健康档案");
-                            Intent intent = new Intent();
-                            intent.setClass(ShenFenYZ.this, JianKangDA.class);
-                            startActivity(intent);
-                            //}
+                            if (user == null) {
+                                CommonUtils.showDlgMsg(ShenFenYZ.this, "手机号或密码错误");
+                            } else {
+                                CommonUtils.showLongMsg(ShenFenYZ.this, "登录成功，进入健康档案");
+                                Intent intent = new Intent();
+                                intent.setClass(ShenFenYZ.this, JianKangDA.class);
+                                intent.putExtra("currentUser", user);
+                                startActivity(intent);
+                            }
                         }
                     });
                 }
@@ -110,7 +131,7 @@ public class ShenFenYZ extends AppCompatActivity implements View.OnClickListener
 
         @Override
         public void afterTextChanged(Editable s) {
-            if (s.toString().length() == mMaxLength){
+            if (s != null && s.toString().length() == mMaxLength){
                 //隐藏输入法软键盘
                 ViewUtil.hideOneInputMethod(ShenFenYZ.this, mView);
             }
