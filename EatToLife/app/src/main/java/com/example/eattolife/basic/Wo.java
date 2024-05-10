@@ -71,7 +71,7 @@ public class Wo extends AppCompatActivity {
             public void onClick(View v) {
 
                 Intent intent = new Intent();
-                intent.setClass(Wo.this, InternetSearch.class); //从Wo跳转到AddFoodRecord
+                intent.setClass(Wo.this, InternetSearch.class); //
                 startActivity(intent);
             }
         });

@@ -15,6 +15,7 @@
         android:theme="@style/Theme.EatToLife"
         tools:targetApi="31">
         <activity android:name=".basic.Wo" />
+        <activity android:name=".basic.InternetSearch" />
         <activity android:name=".basic.JianKangTJ" />
         <activity android:name=".basic.JianKangDA" />
         <activity android:name=".user.ZhangHaoXX"/>
