@@ -3,6 +3,7 @@ package com.example.eattolife.sql;
 import com.example.eattolife.food.FoodInfo;
 import com.example.eattolife.food.FoodRecord;
 
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +21,34 @@ public class FoodDao extends DbOpenHelper {
             getConnection(); //获取连接信息
             String sql = "select * from foodinfo";
             pStmt = conn.prepareStatement(sql);
+            rs = pStmt.executeQuery();
+            while (rs.next()) { //查询数据不用if，而用while
+                FoodInfo item = new FoodInfo();
+                item.setFoodID(rs.getInt("foodID"));
+                item.setFoodName(rs.getString("foodName"));
+                item.setFoodPrice(rs.getInt("foodPrice"));
+                item.setFoodCalorie(rs.getFloat("foodCalorie"));
+                //item.setFoodPic(rs.getString("foodPic"));
+                list.add(item);
+            }
+        }catch (Exception ex) {
+            ex.printStackTrace();
+        }finally {
+            closeAll();
+        }
+        return list;
+    }
+
+    /**
+     * 根据餐厅名查询饮食信息
+     */
+    public List<FoodInfo> getFoodListByID(String id) {
+        List<FoodInfo> list = new ArrayList<>();
+        try{
+            getConnection(); //获取连接信息
+            String sql = "SELECT * FROM fooddetail WHERE foodName = ?"; //先使用占位符
+            pStmt = conn.prepareStatement(sql);
+            pStmt.setString(1, id);
             rs = pStmt.executeQuery();
             while (rs.next()) { //查询数据不用if，而用while
                 FoodInfo item = new FoodInfo();
@@ -127,9 +156,38 @@ public class FoodDao extends DbOpenHelper {
         }catch (Exception ex) {
             ex.printStackTrace();
         }finally {
-
             closeAll();
         }
         return iRow;
+    }
+
+    /**
+     * 按热量排序的方法
+     */
+    /**
+     * 按热量排序的方法
+     */
+    public void CalorieSort() {
+        try {
+            getConnection(); //获取连接信息
+            String sql = "SELECT * FROM foodinfo ORDER BY foodCalorie";
+            pStmt = conn.prepareStatement(sql);
+            // 执行语句
+            ResultSet rs = pStmt.executeQuery();
+            // 处理结果集
+            while (rs.next()) {
+                // 提取每一行的数据
+                int id = rs.getInt("id");
+                String foodName = rs.getString("foodName");
+                double foodCalorie = rs.getDouble("foodCalorie");
+
+                // 处理每一行数据，这里简单打印出来
+                System.out.println("ID: " + id + ", Food Name: " + foodName + ", Food Calorie: " + foodCalorie);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            closeAll();
+        }
     }
 }

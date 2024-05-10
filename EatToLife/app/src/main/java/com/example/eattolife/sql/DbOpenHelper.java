@@ -1,10 +1,13 @@
 package com.example.eattolife.sql;
 
+import com.example.eattolife.food.FoodInfo;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.List;
 
 /**
  * MySQL数据库的连接辅助类

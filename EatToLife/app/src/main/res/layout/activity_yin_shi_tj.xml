@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -24,6 +25,14 @@
             android:gravity="center"
             android:text="早餐"
             android:textSize="22dp"/>
+
+        <TextView
+            android:id="@+id/tv_food_count"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="" />
     </LinearLayout>
 
 
@@ -42,11 +51,18 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <Spinner
-                    android:id="@+id/sp_a1"
+                <Button
+                    android:id="@+id/queryCount"
+                    android:layout_width="51sp"
+                    android:layout_height="51sp"
+                    android:text=""
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+                <Button
+                    android:id="@+id/personalize"
                     android:layout_width="match_parent"
                     android:layout_height="51sp"
-                    android:spinnerMode="dialog" />
+                    android:text="个性化饮食" />
 
                 <Button
                     android:id="@+id/haixin_a2"
@@ -55,16 +71,7 @@
                     android:text="海鑫A2" />
 
                 <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="51sp"
-                    android:text="海鑫A4" />
-
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="51sp"
-                    android:text="海鑫A3" />
-
-                <Button
+                    android:id="@+id/haixin_a5"
                     android:layout_width="150dp"
                     android:layout_height="51sp"
                     android:text="海鑫A5 清真" />
@@ -72,32 +79,42 @@
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="51sp"
-                    android:text="海琴 B1" />
+                    android:text="海鑫A3" />
 
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="51sp"
-                    android:text="海琴 B2" />
+                    android:text="海鑫A4" />
 
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="51sp"
-                    android:text="海琴 B3" />
+                <!--                <Button-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="51sp"-->
+<!--                    android:text="海琴 B1" />-->
 
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="51sp"
-                    android:text="海联F1" />
+<!--                <Button-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="51sp"-->
+<!--                    android:text="海琴 B2" />-->
 
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="51sp"
-                    android:text="海联F2 特色" />
+<!--                <Button-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="51sp"-->
+<!--                    android:text="海琴 B3" />-->
 
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="51sp"
-                    android:text="海联楼F2招待" />
+<!--                <Button-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="51sp"-->
+<!--                    android:text="海联F1" />-->
+
+<!--                <Button-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="51sp"-->
+<!--                    android:text="海联F2 特色" />-->
+
+<!--                <Button-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="51sp"-->
+<!--                    android:text="海联楼F2招待" />-->
 
                 <Button
                     android:layout_width="match_parent"
@@ -126,15 +143,14 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="51sp"
+                android:gravity="right"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/tv_food_count"
-                    android:layout_width="0dp"
+                <Button
+                    android:id="@+id/CalorieSort"
+                    android:layout_width="99sp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="" />
+                    android:text="排序" />
 
                 <Button
                     android:id="@+id/customize"

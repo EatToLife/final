@@ -19,7 +19,7 @@ import android.widget.TextView;
 
 import com.example.eattolife.food.FoodAddActivity;
 import com.example.eattolife.sql.FoodDao;
-import com.example.eattolife.food.FoodEditActivity;
+//import com.example.eattolife.food.FoodEditActivity;
 import com.example.eattolife.food.FoodInfo;
 import com.example.eattolife.food.FoodRecord;
 import com.example.eattolife.LvFoodInfoAdapter;
@@ -37,7 +37,8 @@ public class YinShiTJ extends AppCompatActivity implements View.OnClickListener 
     /**
      * 单个条目查询
      */
-    private Button haixin_a2, customize; //查询海鑫楼食物数量的按钮
+    private Button queryCount, customize, CalorieSort; //查询海鑫楼食物数量的按钮, 自定义饮食，排序
+    private Button haixin_a2, haixin_a5; //界面切换
     private TextView tv_food_count; //查询食物数量的文本框
 
     private FoodDao foodDao; //用户自定义添加食物的数据库操作类
@@ -56,7 +57,7 @@ public class YinShiTJ extends AppCompatActivity implements View.OnClickListener 
             result -> {
                 if (result.getResultCode() == 1) {
                     // 你的处理代码
-                    loadFoodDb();
+                    loadFoodDb("");
                 }
             });
 
@@ -96,13 +97,17 @@ public class YinShiTJ extends AppCompatActivity implements View.OnClickListener 
         });
 
         initView(); //单个条目查询
-        loadFoodDb(); //加载食物信息
+//      loadFoodDb(); //加载食物信息
 
     }
 
     private void initView() {
-        haixin_a2 = findViewById(R.id.haixin_a2);
+        queryCount = findViewById(R.id.queryCount);
         customize = findViewById(R.id.customize);
+        CalorieSort = findViewById(R.id.CalorieSort);
+
+        haixin_a2 = findViewById(R.id.haixin_a2);
+        haixin_a5 = findViewById(R.id.haixin_a5);
 
         tv_food_count = findViewById(R.id.tv_food_count);
 
@@ -113,28 +118,43 @@ public class YinShiTJ extends AppCompatActivity implements View.OnClickListener 
         dbOpenHelper = new DbOpenHelper();
         mainHandler = new Handler(getMainLooper()); //获取主线程
 
-        haixin_a2.setOnClickListener(this);
+        queryCount.setOnClickListener(this);
+        CalorieSort.setOnClickListener(this);
         customize.setOnClickListener(this);
+
+        haixin_a2.setOnClickListener(this);
+        haixin_a5.setOnClickListener(this);
+
     }
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.haixin_a2) {
+        if (v.getId() == R.id.queryCount) {
             doQueryCount();
         } else if (v.getId() == R.id.customize) { //自定义添加饮食
             Intent intent = new Intent(this, FoodAddActivity.class);
             addFoodActivityResultLauncher.launch(intent);
+        } else if (v.getId() == R.id.CalorieSort) { //按热量排序
+            loadFoodDb(null);
+        } else if (v.getId() == R.id.haixin_a2) { //按热量排序
+            loadFoodDb("2");
+        } else if (v.getId() == R.id.haixin_a5) { //按热量排序
+            loadFoodDb("3");
         }
     }
 
     /**
      * 食物加载
      */
-    private void loadFoodDb() {
+    private void loadFoodDb(String id) {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                foodInfoList = foodDao.getAllFoodList(); //获取所有的食物数据
+                if (id != null) {
+                    foodInfoList = foodDao.getFoodListByID(id); //获取所有的食物数据
+                } else {
+                    foodInfoList = foodDao.getAllFoodList(); //获取所有的食物数据
+                }
                 mainHandler.post(new Runnable() {
                     @Override
                     public void run() {
@@ -155,19 +175,19 @@ public class YinShiTJ extends AppCompatActivity implements View.OnClickListener 
             lvFoodInfoAdapter.notifyDataSetChanged();
         }
 
-        //修改按钮的操作
-        lvFoodInfoAdapter.setOnEditBtnClickListener(new OnEditBtnClickListener() {
-            @Override
-            public void onEditBtnClick(View v, int position) {
-                //修改按钮的操作
-                FoodInfo item = foodInfoList.get(position);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("foodInfoEdit", item);
-                Intent intent = new Intent(YinShiTJ.this, FoodEditActivity.class);
-                intent.putExtras(bundle);
-                startActivityForResult(intent, 1);
-            }
-        });
+//        //修改按钮的操作
+//        lvFoodInfoAdapter.setOnEditBtnClickListener(new OnEditBtnClickListener() {
+//            @Override
+//            public void onEditBtnClick(View v, int position) {
+//                //修改按钮的操作
+//                FoodInfo item = foodInfoList.get(position);
+//                Bundle bundle = new Bundle();
+//                bundle.putSerializable("foodInfoEdit", item);
+//                Intent intent = new Intent(YinShiTJ.this, FoodEditActivity.class);
+//                intent.putExtras(bundle);
+//                startActivityForResult(intent, 1);
+//            }
+//        });
 
         //删除按钮的操作
         lvFoodInfoAdapter.setOnDelBtnClickListener(new OnDelBtnClickListener() {
@@ -203,49 +223,6 @@ public class YinShiTJ extends AppCompatActivity implements View.OnClickListener 
         });
     }
 
-
-    /**
-     * 执行删除用户饮食记录的方法
-     *
-     * @param id 要删除用户的id
-     */
-    private void doDelFoodRecord(final int id) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                final int iRow = foodDao.delFoodRecord(id);
-                mainHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (iRow > 0) {
-                            CommonUtils.showShortMsg(getApplicationContext(), "已成功删除！");
-                            loadFoodDb();
-                        } else {
-                            CommonUtils.showShortMsg(getApplicationContext(), "删除物信息失败！");
-                        }
-                        setResult(1);
-                        finish();
-                    }
-                });
-            }
-        }).start();
-    }
-
-    //执行查询食物数量的方法
-    private void doQueryCount() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                int count = MySqlHelp.getFoodSize();
-                Message msg = Message.obtain();
-                msg.what = 0;
-                msg.obj = count;
-                //向主线程发送数据
-                handler.sendMessage(msg);
-            }
-        }).start(); //!!start
-    }
-
     //确定（保存）的点击事件处理
     public void doAddFoodRecord(FoodInfo foodRecord) { //把foodinfo提取出来作为foodRecord
         final int foodRecordID = foodRecord.getFoodID();
@@ -276,5 +253,68 @@ public class YinShiTJ extends AppCompatActivity implements View.OnClickListener 
                 });
             }
         }).start();
+    }
+
+    /**
+     * 执行删除用户饮食记录的方法
+     *
+     * @param id 要删除用户的id
+     */
+    private void doDelFoodRecord(final int id) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                final int iRow = foodDao.delFoodRecord(id);
+                mainHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (iRow > 0) {
+                            CommonUtils.showShortMsg(getApplicationContext(), "已成功删除！");
+                            loadFoodDb("");
+                        } else {
+                            CommonUtils.showShortMsg(getApplicationContext(), "删除物信息失败！");
+                        }
+                        setResult(1);
+                        finish();
+                    }
+                });
+            }
+        }).start();
+    }
+
+    //执行查询食物数量的方法
+    private void doQueryCount() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                int count = MySqlHelp.getFoodSize();
+                Message msg = Message.obtain();
+                msg.what = 0;
+                msg.obj = count;
+                //向主线程发送数据
+                handler.sendMessage(msg);
+            }
+        }).start(); //!!start
+    }
+
+    /**
+     * 按热量排序的方法
+     */
+    /**
+     * 按热量排序的方法
+     */
+    private void doCalorieSort() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                foodDao.CalorieSort(); // 调用排序方法
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        CommonUtils.showShortMsg(getApplicationContext(), "按热量排序！");
+                    }
+                });
+            }
+        }).start(); //!!start
     }
 }
