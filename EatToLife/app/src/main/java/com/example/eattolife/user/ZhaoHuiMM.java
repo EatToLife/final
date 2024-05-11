@@ -3,7 +3,9 @@ package com.example.eattolife;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -16,6 +18,7 @@ public class ZhaoHuiMM extends AppCompatActivity implements View.OnClickListener
 
     private String mCell;
     private String mCode;
+    private String password;
     private EditText et_password_first;
     private EditText et_password_second;
     private EditText et_code;
@@ -35,7 +38,12 @@ public class ZhaoHuiMM extends AppCompatActivity implements View.OnClickListener
         Intent intent = getIntent();// 获取传递的intent
         user = (Userinfo) intent.getSerializableExtra("user");
         //获取要修改密码的手机号
-        mCell = user.getCell();
+        if(user != null){
+            mCell = user.getCell();
+        }else {
+            CommonUtils.showLongMsg(ZhaoHuiMM.this, "未能获得用户信息");
+            finish();
+        }
     }
 
     @Override
@@ -53,29 +61,47 @@ public class ZhaoHuiMM extends AppCompatActivity implements View.OnClickListener
             dialog.show();
         } else if (v.getId() == R.id.b_confirm) {
             //点击了“确定”按钮
-            String password_first = et_password_first.getText().toString();
+            password = et_password_first.getText().toString();
             String password_second = et_password_second.getText().toString();
-            if(password_first.length()<6){
+            if(password.length()<6){
                 Toast.makeText(this,"请输入正确的密码",Toast.LENGTH_SHORT).show();
                 return;
-            }
-            if(!password_first.equals(password_second)){
+            } else if(!password.equals(password_second)){
                 Toast.makeText(this,"两次输入的密码不一致",Toast.LENGTH_SHORT).show();
                 return;
-            }
-            if(!mCode.equals(et_code.getText().toString())){
+            } else if(!mCode.equals(et_code.getText().toString())){
                 Toast.makeText(this,"请输入正确的验证码",Toast.LENGTH_SHORT).show();
                 return;
-            }
-            UserDao userDao = new UserDao();//用户数据库操作实例
-            int row = userDao.editUserPassword(user);
-            if(row>0) {
-                CommonUtils.showDlgMsg(ZhaoHuiMM.this, "密码修改成功");
-                //以下把修改好的新密码返回上一个页面
-                Intent intent = new Intent();
-                intent.setClass(ZhaoHuiMM.this, ShenFenYZ.class);
-                startActivity(intent);
+            }else {
+                EditPassword();
             }
         }
+    }
+    private void EditPassword() {
+        new AsyncTask<Void, Void, Integer>(){
+            @Override
+            protected Integer doInBackground(Void... voids) {
+                try {
+                    user.setPassword(password);
+
+                    UserDao userDao = new UserDao();//用户数据库操作实例
+                    return userDao.editUserPassword(user);
+                }catch (Exception e){
+                    e.printStackTrace();
+                    return -1;
+                }
+            }
+
+            @Override
+            protected void onPostExecute(Integer row){
+                if(row !=null && row > 0) {
+                    Log.d("ZhaoHuiMM", "修改成功");
+                    CommonUtils.showShortMsg(ZhaoHuiMM.this, "密码修改成功");
+                    finish();
+                }else{
+                    Log.d("ZhaoHuiMM", "修改失败");
+                }
+            }
+        }.execute();
     }
 }

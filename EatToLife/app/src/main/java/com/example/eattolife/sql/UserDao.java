@@ -42,6 +42,39 @@ public class UserDao extends DbOpenHelper {
         return list;
     }
     /**
+     * 按手机号查询用户信息 R
+     * @param cell 手机号
+     * @return Userinfo 实例
+     */
+    public Userinfo getUserByCell(String cell){
+        Userinfo item = null;
+        try{
+            getConnection();//取得连接信息
+            String sql = "select * from userinfo where cell=?";
+            pStmt = conn.prepareStatement(sql);
+            pStmt.setString(1, cell);
+            rs= pStmt.executeQuery();
+            if(rs.next()){
+                item = new Userinfo();
+                item.setUserID(rs.getInt("userID"));
+                item.setUserName(rs.getString("userName"));
+                item.setCell(cell);
+                item.setPassword(rs.getString("password"));
+                item.setAge(rs.getInt("age"));
+                item.setSex(rs.getString("sex"));
+                item.setHeight(rs.getDouble("height"));
+                item.setWeight(rs.getDouble("weight"));
+                item.setFoodLike(rs.getString("foodLike"));
+                item.setSportLike(rs.getString("sportLike"));
+            }
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }finally {
+            closeAll();
+        }
+        return item;
+    }
+    /**
      * 按手机号和密码查询用户信息 R
      * @param cell 手机号
      * @param password 密码
@@ -61,7 +94,7 @@ public class UserDao extends DbOpenHelper {
                 item.setUserID(rs.getInt("userID"));
                 item.setUserName(rs.getString("userName"));
                 item.setCell(cell);
-                item.setCell(password);
+                item.setPassword(password);
                 item.setAge(rs.getInt("age"));
                 item.setSex(rs.getString("sex"));
                 item.setHeight(rs.getDouble("height"));
@@ -139,9 +172,10 @@ public class UserDao extends DbOpenHelper {
         int iRow = 0;
         try{
             getConnection();//取得连接信息
-            String sql ="update userinfo set password=? where userID=?";
+            String sql ="update userinfo set password=? where cell=?";
             pStmt = conn.prepareStatement(sql);
             pStmt.setString(1,item.getPassword());
+            pStmt.setString(2,item.getCell());
             iRow = pStmt.executeUpdate();
         }catch (Exception ex){
             ex.printStackTrace();
