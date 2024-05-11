@@ -1,7 +1,5 @@
 package com.example.eattolife;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -9,8 +7,14 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.eattolife.basic.JianKangDA;
+import com.example.eattolife.sql.UserDao;
 import com.example.eattolife.tools.CommonUtils;
+import com.example.eattolife.user.Userinfo;
 
 import java.util.Locale;
 
@@ -22,6 +26,7 @@ public class XiuGaiDA extends AppCompatActivity {
     private EditText et_foodLike;
     private EditText et_sportLike;
     private Button b_save;
+    private ImageView xg_return;
     private Userinfo user;
     private int age;
     private String sex, foodLike, sportLike;
@@ -39,8 +44,11 @@ public class XiuGaiDA extends AppCompatActivity {
         et_foodLike = findViewById(R.id.et_foodLike);
         et_sportLike = findViewById(R.id.et_sportLike);
         b_save = findViewById(R.id.b_save);
+        xg_return = findViewById(R.id.xg_return);
 
-        b_save.setOnClickListener(new XiuGaiDA.MyOnClickListener());
+
+        b_save.setOnClickListener(new MyOnClickListener());
+        xg_return.setOnClickListener(new MyOnClickListener());
 
         Intent intent = getIntent();// 获取传递的intent
         user = (Userinfo) intent.getSerializableExtra("user");
@@ -80,6 +88,11 @@ public class XiuGaiDA extends AppCompatActivity {
                     CommonUtils.showLongMsg(XiuGaiDA.this, "输入无效，请检查并重新输入");
                     e.printStackTrace();
                 }
+            } else if ((v.getId() == R.id.xg_return)){
+                Intent intent=new Intent();
+                intent.setClass(XiuGaiDA.this, JianKangDA.class);
+                intent.putExtra("user", user);
+                startActivity(intent);
             }
         }
         private void EditUserinfo() {
@@ -104,7 +117,7 @@ public class XiuGaiDA extends AppCompatActivity {
 
                 @Override
                 protected void onPostExecute(Integer row){
-                    if(row !=null && row > 0) {
+                    if(row !=null && row.intValue() > 0) {
                         Log.d("XiuGaiDA", "更新成功");
                         CommonUtils.showShortMsg(XiuGaiDA.this, "保存成功");
                         finish();

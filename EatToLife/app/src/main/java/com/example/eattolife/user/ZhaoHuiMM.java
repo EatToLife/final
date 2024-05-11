@@ -1,4 +1,4 @@
-package com.example.eattolife;
+package com.example.eattolife.user;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,6 +10,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.eattolife.R;
+import com.example.eattolife.basic.ShenFenYZ;
+import com.example.eattolife.sql.UserDao;
 import com.example.eattolife.tools.CommonUtils;
 
 import java.util.Random;

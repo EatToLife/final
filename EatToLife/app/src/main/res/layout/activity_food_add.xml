@@ -34,7 +34,7 @@
                 android:id="@+id/foodName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="请选择日期"
+                android:hint="请输入饮食名称！"
                 tools:ignore="TouchTargetSizeCheck" />
         </LinearLayout>
 
@@ -53,7 +53,7 @@
                 android:id="@+id/foodPrice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="早/午/晚/加餐"
+                android:hint="请记录饮食价格！"
                 tools:ignore="TouchTargetSizeCheck" />
             />
         </LinearLayout>

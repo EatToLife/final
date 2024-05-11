@@ -10,7 +10,7 @@
     tools:context=".XiuGaiDA">
 
     <ImageView
-        android:id="@+id/iv_return"
+        android:id="@+id/xg_return"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:src="@drawable/back"/>

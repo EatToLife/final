@@ -15,6 +15,7 @@
         android:theme="@style/Theme.EatToLife"
         tools:targetApi="31">
         <activity android:name=".basic.Wo" />
+        <activity android:name=".basic.YinShiTJ" />
         <activity android:name=".basic.InternetSearch" />
         <activity android:name=".basic.JianKangTJ" />
         <activity android:name=".basic.JianKangDA" />
@@ -22,12 +23,13 @@
         <activity android:name=".user.ZhaoHuiMM"/>
         <activity android:name=".basic.YunDongKLLB" />
         <activity android:name=".basic.ShiWuKLLB" />
+        <activity android:name=".XiuGaiDA" />
         <activity android:name=".food.FoodInfo"/>
         <activity android:name=".food.FoodAddActivity"/>
-<!--        <activity android:name=".food.FoodEditActivity" />-->
+        <!--        <activity android:name=".food.FoodEditActivity" />-->
 
         <activity
-            android:name=".basic.YinShiTJ"
+            android:name=".basic.ShenFenYZ"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

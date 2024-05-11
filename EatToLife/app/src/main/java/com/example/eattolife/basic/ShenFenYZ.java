@@ -1,21 +1,26 @@
-package com.example.eattolife;
+package com.example.eattolife.basic;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.example.eattolife.R;
+import com.example.eattolife.basic.JianKangDA;
+import com.example.eattolife.sql.DbOpenHelper;
+import com.example.eattolife.sql.UserDao;
 import com.example.eattolife.tools.CommonUtils;
+import com.example.eattolife.user.Userinfo;
+import com.example.eattolife.user.ZhaoHuiMM;
 import com.example.eattolife.util.ViewUtil;
 
 
@@ -23,9 +28,24 @@ import com.example.eattolife.util.ViewUtil;
 public class ShenFenYZ extends AppCompatActivity implements View.OnClickListener {
 
     private EditText et_cell, et_password;
+    private TextView tv_forget;
+    private Button b_login;
     private UserDao userDao;//用户数据库操作类
     private Userinfo user;
+    private DbOpenHelper dbOpenHelper; //数据库连接辅助
     private Handler mainHandler;//主线程
+    //复写线程
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(@NonNull Message msg){
+            //super.handleMessage(msg);
+            if(msg.what==0){
+                int count=(Integer)msg.obj;
+            }
+        }
+    };
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +54,8 @@ public class ShenFenYZ extends AppCompatActivity implements View.OnClickListener
 
         et_cell = findViewById(R.id.et_cell);
         et_password = findViewById(R.id.et_password);
-        TextView tv_forget = findViewById(R.id.tv_forget);
-        Button b_login = findViewById(R.id.b_login);
+        tv_forget = findViewById(R.id.tv_forget);
+        b_login = findViewById(R.id.b_login);
         //给et_cell添加文本变更监听器
         et_cell.addTextChangedListener(new HideTextWatcher(et_cell, 11));
         //给et_password添加文本变更监听器
@@ -54,8 +74,9 @@ public class ShenFenYZ extends AppCompatActivity implements View.OnClickListener
             if (cell.length() < 11) {
                 CommonUtils.showDlgMsg(ShenFenYZ.this, "请输入正确的手机号");
             }else {
-                //执行忘记密码操作
-                new ForgetPasswordTask().execute(cell);
+                Intent intent = new Intent(ShenFenYZ.this, ZhaoHuiMM.class);
+                intent.putExtra("user", user);
+                startActivity(intent);
             }
         }else if(v.getId() == R.id.b_login){
             doLogin();
@@ -96,26 +117,6 @@ public class ShenFenYZ extends AppCompatActivity implements View.OnClickListener
         }
     }
 
-    //忘记密码异步任务
-    private class ForgetPasswordTask extends  AsyncTask<String, Void, Userinfo>{
-
-        @Override
-        protected Userinfo doInBackground(String... params) {
-            String cell = params[0];
-            return userDao.getUserByCell(cell);
-        }
-
-        @Override
-        protected void onPostExecute(Userinfo userinfo){
-            if(userinfo != null) {
-                Intent intent = new Intent(ShenFenYZ.this, ZhaoHuiMM.class);
-                intent.putExtra("user", userinfo);
-                startActivity(intent);
-            }else{
-                Log.d("ShenFenYZ", "用户不存在");
-            }
-        }
-    }
     private class HideTextWatcher implements TextWatcher {
         final private EditText mView;
         final private int mMaxLength;

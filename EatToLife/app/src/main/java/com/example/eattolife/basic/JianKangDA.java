@@ -1,4 +1,4 @@
-package com.example.eattolife;
+package com.example.eattolife.basic;
 
 
 
@@ -12,13 +12,19 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import com.example.eattolife.LvUserinfoAdapter;
+import com.example.eattolife.R;
+import com.example.eattolife.XiuGaiDA;
+import com.example.eattolife.user.ZhangHaoXX;
+import com.example.eattolife.sql.UserDao;
+import com.example.eattolife.user.Userinfo;
+
 import java.util.List;
 import java.util.Locale;
 
 public class JianKangDA extends AppCompatActivity {
 
     private ImageButton me;
-    private ImageView iv_return;
+    private ImageView da_return;
     private ImageView iv_edit;
     private TextView tv_userName;
     private TextView tv_BMI;
@@ -35,7 +41,7 @@ public class JianKangDA extends AppCompatActivity {
         setContentView(R.layout.activity_jian_kang_da);
 
         me = findViewById(R.id.me);
-        iv_return = findViewById(R.id.iv_return);
+        da_return = findViewById(R.id.da_return);
         iv_edit = findViewById(R.id.iv_edit);
         tv_userName = findViewById(R.id.tv_userName);
         tv_BMI = findViewById(R.id.tv_BMI);
@@ -44,7 +50,7 @@ public class JianKangDA extends AppCompatActivity {
         lv_user = findViewById(R.id.lv_user);
         mainHandler = new Handler(getMainLooper());
         me.setOnClickListener(new MyOnClickListener());
-        iv_return.setOnClickListener(new MyOnClickListener());
+        da_return.setOnClickListener(new MyOnClickListener());
         iv_edit.setOnClickListener(new MyOnClickListener());
         loadUserDb();
 
@@ -111,8 +117,11 @@ public class JianKangDA extends AppCompatActivity {
     class MyOnClickListener implements View.OnClickListener{
         @Override
         public void onClick(View v) {
-            if (v.getId() == R.id.iv_return) {
-                finish();
+            if (v.getId() == R.id.da_return) {
+                Intent intent=new Intent();
+                intent.setClass(JianKangDA.this, Wo.class);
+                intent.putExtra("user", user);
+                startActivity(intent);
             } else if (v.getId() == R.id.me) {
                 Intent intent=new Intent();
                 intent.setClass(JianKangDA.this, ZhangHaoXX.class);

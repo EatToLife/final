@@ -1,4 +1,4 @@
-package com.example.eattolife;
+package com.example.eattolife.user;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,6 +8,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
+import com.example.eattolife.R;
+import com.example.eattolife.user.ZhaoHuiMM;
+import com.example.eattolife.user.Userinfo;
 
 public class ZhangHaoXX extends AppCompatActivity {
 
