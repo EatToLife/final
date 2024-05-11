@@ -53,9 +53,9 @@
 
                 <Button
                     android:id="@+id/queryCount"
-                    android:layout_width="51sp"
+                    android:layout_width="110sp"
                     android:layout_height="51sp"
-                    android:text=""
+                    android:text="查询数量"
                     tools:ignore="SpeakableTextPresentCheck" />
 
                 <Button

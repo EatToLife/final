@@ -177,14 +177,6 @@
             android:textColor="#000000"
             android:textSize="19sp" />
 
-        <Button
-            android:id="@+id/foodRecordQuery"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="饮食记录"
-            android:textColor="#000000"
-            android:textSize="19sp" />
 
         <Button
             android:id="@+id/foodKLLQuery"
@@ -192,6 +184,15 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="食物卡路里表"
+            android:textColor="#000000"
+            android:textSize="19sp" />
+
+        <Button
+            android:id="@+id/foodRecordQuery"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="+"
             android:textColor="#000000"
             android:textSize="19sp" />
 

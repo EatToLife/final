@@ -88,6 +88,9 @@ public class XiuGaiDA extends AppCompatActivity {
                     CommonUtils.showLongMsg(XiuGaiDA.this, "输入无效，请检查并重新输入");
                     e.printStackTrace();
                 }
+                Intent intent=new Intent();
+                intent.setClass(XiuGaiDA.this, JianKangDA.class);
+                startActivity(intent);
             } else if ((v.getId() == R.id.xg_return)){
                 Intent intent=new Intent();
                 intent.setClass(XiuGaiDA.this, JianKangDA.class);

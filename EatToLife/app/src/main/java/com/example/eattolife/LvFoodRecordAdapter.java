@@ -1,6 +1,7 @@
 package com.example.eattolife;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.eattolife.basic.JianKangDA;
 import com.example.eattolife.food.FoodRecord;
 
 import java.util.List;
@@ -98,7 +100,8 @@ public class LvFoodRecordAdapter extends BaseAdapter {
             public void onClick(View v) {
                 if (onDelBtnClickListener != null) {
                     onDelBtnClickListener.onDelBtnClick(v, position);
-                }            }
+                }
+            }
         });
 
         return convertView;

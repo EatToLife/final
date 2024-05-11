@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.eattolife.XiuGaiDA;
 import com.example.eattolife.food.FoodAddActivity;
 import com.example.eattolife.sql.FoodDao;
 //import com.example.eattolife.food.FoodEditActivity;
@@ -97,7 +98,7 @@ public class YinShiTJ extends AppCompatActivity implements View.OnClickListener 
         });
 
         initView(); //单个条目查询
-//      loadFoodDb(); //加载食物信息
+       loadFoodDb(null); //加载食物信息
 
     }
 
@@ -203,14 +204,21 @@ public class YinShiTJ extends AppCompatActivity implements View.OnClickListener 
                             public void onClick(DialogInterface dialog, int which) {
                                 doDelFoodRecord(item.getFoodID());
 
-                                // 删除成功后更新界面数据
+                                // 从数据源中删除对象
                                 foodInfoList.remove(item);
-                                lvFoodInfoAdapter.notifyDataSetChanged();                            }
+
+                                // 删除成功后更新界面数据
+                                lvFoodInfoAdapter.notifyDataSetChanged();
+
+                                // 关闭对话框并返回上一个界面
+                                dialog.dismiss();
+                            }
                         })
                         .setNegativeButton("取消", null)
                         .create().show();
             }
         });
+
 
         //添加按钮的操作
         lvFoodInfoAdapter.setOnAddBtnClickListener(new OnAddBtnClickListener() {

@@ -67,7 +67,7 @@ public class ZhaoHuiMM extends AppCompatActivity implements View.OnClickListener
             password = et_password_first.getText().toString();
             String password_second = et_password_second.getText().toString();
             if(password.length()<6){
-                Toast.makeText(this,"请输入正确的密码",Toast.LENGTH_SHORT).show();
+                Toast.makeText(this,"请输入6位以上的密码",Toast.LENGTH_SHORT).show();
                 return;
             } else if(!password.equals(password_second)){
                 Toast.makeText(this,"两次输入的密码不一致",Toast.LENGTH_SHORT).show();
